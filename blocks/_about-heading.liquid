@@ -1,0 +1,38 @@
+<h2 class="about-heading" {{ block.shopify_attributes }}>
+  {{- block.settings.heading -}}
+</h2>
+
+{% stylesheet %}
+  .about-heading {
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: 0;
+    color: var(--color-foreground);
+    margin: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .about-heading {
+      font-size: 32px;
+      line-height: 40px;
+      max-width: 459px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "About heading",
+  "tag": null,
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Market America | SHOP.COM is a product brokerage and internet marketing company powered by entrepreneurs around the world."
+    }
+  ]
+}
+{% endschema %}

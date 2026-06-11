@@ -1269,6 +1269,39 @@
         "fi_quote",
         "fi_logos"
       ]
+    },
+    "about_section": {
+      "type": "about",
+      "blocks": {
+        "about_image": {
+          "type": "_about-image",
+          "settings": {
+            "image": "shopify://shop_images/rectangle-3458-home-page-3095318.png"
+          }
+        },
+        "about_label": {
+          "type": "_about-label",
+          "settings": {
+            "text": "About SHOP.COM"
+          }
+        },
+        "about_heading": {
+          "type": "_about-heading",
+          "settings": {
+            "heading": "Market America | SHOP.COM is a product brokerage and internet marketing company powered by entrepreneurs around the world."
+          }
+        }
+      },
+      "block_order": [
+        "about_image",
+        "about_label",
+        "about_heading"
+      ],
+      "settings": {
+        "color_scheme": "scheme-3",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
     }
   },
   "order": [
@@ -1278,6 +1311,7 @@
     "featured_collection_carousel",
     "brand_carousel",
     "power_picks",
-    "featured_in"
+    "featured_in",
+    "about_section"
   ]
 }

@@ -1,0 +1,164 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap" rel="stylesheet">
+
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div
+  class="
+    section
+    section--full-width
+    color-{{ section.settings.color_scheme }}
+    about
+    spacing-style
+  "
+  style="{% render 'spacing-style', settings: section.settings %}"
+  data-testid="about-section"
+>
+  <div class="about__blocks">
+    {% content_for 'blocks' %}
+  </div>
+</div>
+
+{% stylesheet %}
+  /* Mobile-first: stacked column */
+  .about__blocks {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Mobile content spacing */
+  @media screen and (max-width: 749px) {
+    .about__blocks > :not(.about-image) {
+      margin-inline: 24px;
+    }
+
+    .about__blocks > .about-image + * {
+      margin-block-start: 40px;
+    }
+
+    .about__blocks > :not(.about-image) + :not(.about-image) {
+      margin-block-start: 8px;
+    }
+
+    .about__blocks > :not(.about-image):last-child {
+      margin-block-end: 40px;
+    }
+  }
+
+  /* Desktop: two-column grid */
+  @media screen and (min-width: 750px) {
+    .about__blocks {
+      display: grid;
+      grid-template-columns: 58.7% 1fr;
+      grid-template-rows: 1fr auto auto 1fr;
+    }
+
+    .about__blocks > .about-image {
+      grid-column: 1;
+      grid-row: 1 / -1;
+      align-self: stretch;
+    }
+
+    .about__blocks > :not(.about-image) {
+      grid-column: 2;
+      padding-inline: 64px;
+    }
+
+    .about__blocks > .about-label {
+      grid-row: 2;
+      align-self: end;
+    }
+
+    .about__blocks > .about-heading {
+      grid-row: 3;
+      align-self: start;
+      margin-block-start: 16px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "About",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "blocks": [
+    {
+      "type": "_about-image"
+    },
+    {
+      "type": "_about-label"
+    },
+    {
+      "type": "_about-heading"
+    },
+    {
+      "type": "@theme"
+    },
+    {
+      "type": "@app"
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-3"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "About",
+      "category": "Storytelling",
+      "blocks": {
+        "about_image": {
+          "type": "_about-image"
+        },
+        "about_label": {
+          "type": "_about-label",
+          "settings": {
+            "text": "About SHOP.COM"
+          }
+        },
+        "about_heading": {
+          "type": "_about-heading",
+          "settings": {
+            "heading": "Market America | SHOP.COM is a product brokerage and internet marketing company powered by entrepreneurs around the world."
+          }
+        }
+      },
+      "block_order": ["about_image", "about_label", "about_heading"]
+    }
+  ]
+}
+{% endschema %}

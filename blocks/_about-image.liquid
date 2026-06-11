@@ -1,0 +1,57 @@
+{%- liquid
+  assign image = block.settings.image
+-%}
+
+<div class="about-image" {{ block.shopify_attributes }}>
+  {%- if image != blank -%}
+    {%- assign sizes_val = '(min-width: 750px) 58.7vw, 100vw' -%}
+    {{
+      image
+      | image_url: width: image.width
+      | image_tag:
+        sizes: sizes_val,
+        widths: '375,550,750,900,1100,1500,1800',
+        loading: 'lazy',
+        class: 'about-image__img',
+        alt: image.alt
+    }}
+  {%- else -%}
+    {{ 'lifestyle-2' | placeholder_svg_tag: 'about-image__placeholder' }}
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  .about-image {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .about-image__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+  }
+
+  .about-image__placeholder {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "About image",
+  "tag": null,
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,38 @@
+<p class="about-label" {{ block.shopify_attributes }}>
+  {{- block.settings.text -}}
+</p>
+
+{% stylesheet %}
+  .about-label {
+    font-family: 'Inter', var(--font-body--family);
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    color: var(--color-foreground);
+    margin: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .about-label {
+      font-size: 14px;
+      line-height: 20px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "About label",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text",
+      "default": "About SHOP.COM"
+    }
+  ]
+}
+{% endschema %}
