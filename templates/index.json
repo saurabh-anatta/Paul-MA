@@ -755,19 +755,10 @@
     },
     "power_picks": {
       "type": "power-picks-carousel",
-      "settings": {
-        "heading": "Laurens Power Picks",
-        "background_image": "shopify://shop_images/rectangle-3313-home-page-3095900.png",
-        "columns": 4,
-        "mobile_columns": "1",
-        "columns_gap": 32,
-        "color_scheme": "scheme-1",
-        "padding-block-start": 48,
-        "padding-block-end": 48
-      },
       "blocks": {
         "pp_card_1": {
           "type": "_power-picks-card",
+          "settings": {},
           "blocks": {
             "pp_image_1": {
               "type": "_power-picks-image",
@@ -803,6 +794,7 @@
         },
         "pp_card_2": {
           "type": "_power-picks-card",
+          "settings": {},
           "blocks": {
             "pp_image_2": {
               "type": "_power-picks-image",
@@ -838,6 +830,7 @@
         },
         "pp_card_3": {
           "type": "_power-picks-card",
+          "settings": {},
           "blocks": {
             "pp_image_3": {
               "type": "_power-picks-image",
@@ -873,6 +866,7 @@
         },
         "pp_card_4": {
           "type": "_power-picks-card",
+          "settings": {},
           "blocks": {
             "pp_image_4": {
               "type": "_power-picks-image",
@@ -912,7 +906,17 @@
         "pp_card_2",
         "pp_card_3",
         "pp_card_4"
-      ]
+      ],
+      "settings": {
+        "heading": "Laurens Power Picks",
+        "background_image": "shopify://shop_images/rectangle-3313-home-page-3095900.png",
+        "columns": 4,
+        "mobile_columns": "1",
+        "columns_gap": 32,
+        "color_scheme": "scheme-1",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
     }
   },
   "order": [
