@@ -20,11 +20,13 @@
     endif
   %}
 
+  {% capture blocks_content %}{% content_for 'blocks' %}{% endcapture %}
+
   {%- if section.settings.layout == 'split' -%}
     <div class="announcement-bar__split">
       <div class="announcement-bar__split-left">
         <div class="announcement-bar__slides announcement-bar__slides--inline">
-          {% content_for 'blocks' %}
+          {{ blocks_content }}
         </div>
       </div>
       {%- if section.settings.secondary_link_text != blank -%}
@@ -52,7 +54,7 @@
       {% endif %}
 
       <div class="announcement-bar__slides">
-        {% content_for 'blocks' %}
+        {{ blocks_content }}
       </div>
     </announcement-bar-component>
   {%- endif -%}
