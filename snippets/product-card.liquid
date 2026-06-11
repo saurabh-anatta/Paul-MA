@@ -124,4 +124,29 @@
       display: none;
     }
   }
+
+  .product-card__content .button {
+    border-radius: 32px;
+    width: 100%;
+  }
+
+  @media screen and (max-width: 749px) {
+    .product-card .card-gallery.spacing-style {
+      --padding-block-start: 4px;
+      --padding-block-end: 4px;
+    }
+  }
+
+  .product-card__cashback {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
+
+  .product-card__cashback svg {
+    width: 12px;
+    height: 12px;
+  }
 {% endstylesheet %}
