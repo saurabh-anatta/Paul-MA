@@ -1,0 +1,64 @@
+<div class="power-picks-image" {{ block.shopify_attributes }}>
+  {%- if block.settings.image != blank -%}
+    {%- assign sizes_val = '(min-width: 750px) 328px, calc(100vw - 32px)' -%}
+    {{
+      block.settings.image
+      | image_url: width: block.settings.image.width
+      | image_tag:
+        sizes: sizes_val,
+        widths: '328,375,550,656,750',
+        loading: 'lazy',
+        class: 'power-picks-image__img',
+        alt: block.settings.image.alt
+    }}
+  {%- else -%}
+    <div class="power-picks-image__placeholder">
+      {{ 'product-1' | placeholder_svg_tag: 'power-picks-image__placeholder-svg' }}
+    </div>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  .power-picks-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 16px 16px 0 0;
+    flex-shrink: 0;
+  }
+
+  .power-picks-image__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .power-picks-image__placeholder {
+    width: 100%;
+    height: 100%;
+    background: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .power-picks-image__placeholder-svg {
+    width: 60%;
+    height: 60%;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Image",
+  "tag": null,
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    }
+  ]
+}
+{% endschema %}

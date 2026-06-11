@@ -752,12 +752,174 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
+    },
+    "power_picks": {
+      "type": "power-picks-carousel",
+      "settings": {
+        "heading": "Laurens Power Picks",
+        "background_image": "shopify://shop_images/rectangle-3313-home-page-3095900.png",
+        "columns": 4,
+        "mobile_columns": "1",
+        "columns_gap": 32,
+        "color_scheme": "scheme-1",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      },
+      "blocks": {
+        "pp_card_1": {
+          "type": "_power-picks-card",
+          "blocks": {
+            "pp_image_1": {
+              "type": "_power-picks-image",
+              "settings": {
+                "image": "shopify://shop_images/935461732-1-home-page-3095910.png"
+              }
+            },
+            "pp_title_1": {
+              "type": "_power-picks-title",
+              "settings": {
+                "title": "The Closest Thing to the Fountain of Youth"
+              }
+            },
+            "pp_desc_1": {
+              "type": "_power-picks-description",
+              "settings": {
+                "description": "Renew DNA and refresh 30+ trillion cells to fuel metabolism, stay mentally sharp and full of youthful energy."
+              }
+            },
+            "pp_button_1": {
+              "type": "_power-picks-button",
+              "settings": {
+                "label": "Shop now"
+              }
+            }
+          },
+          "block_order": [
+            "pp_image_1",
+            "pp_title_1",
+            "pp_desc_1",
+            "pp_button_1"
+          ]
+        },
+        "pp_card_2": {
+          "type": "_power-picks-card",
+          "blocks": {
+            "pp_image_2": {
+              "type": "_power-picks-image",
+              "settings": {
+                "image": "shopify://shop_images/935461732-1-home-page-3095910.png"
+              }
+            },
+            "pp_title_2": {
+              "type": "_power-picks-title",
+              "settings": {
+                "title": "Glass Skin Perfected by Science"
+              }
+            },
+            "pp_desc_2": {
+              "type": "_power-picks-description",
+              "settings": {
+                "description": "Ultra-rich crème that refines skin structure, smooths wrinkles, and delivers a radiant, sculpted glow."
+              }
+            },
+            "pp_button_2": {
+              "type": "_power-picks-button",
+              "settings": {
+                "label": "Shop now"
+              }
+            }
+          },
+          "block_order": [
+            "pp_image_2",
+            "pp_title_2",
+            "pp_desc_2",
+            "pp_button_2"
+          ]
+        },
+        "pp_card_3": {
+          "type": "_power-picks-card",
+          "blocks": {
+            "pp_image_3": {
+              "type": "_power-picks-image",
+              "settings": {
+                "image": "shopify://shop_images/935461732-1-home-page-3095930.png"
+              }
+            },
+            "pp_title_3": {
+              "type": "_power-picks-title",
+              "settings": {
+                "title": "300x More Powerful Than Competitors"
+              }
+            },
+            "pp_desc_3": {
+              "type": "_power-picks-description",
+              "settings": {
+                "description": "Called the \"Magic Bullet\" against aging, get the antioxidant benefits of wine, without the aftermath."
+              }
+            },
+            "pp_button_3": {
+              "type": "_power-picks-button",
+              "settings": {
+                "label": "Shop now"
+              }
+            }
+          },
+          "block_order": [
+            "pp_image_3",
+            "pp_title_3",
+            "pp_desc_3",
+            "pp_button_3"
+          ]
+        },
+        "pp_card_4": {
+          "type": "_power-picks-card",
+          "blocks": {
+            "pp_image_4": {
+              "type": "_power-picks-image",
+              "settings": {
+                "image": "shopify://shop_images/935461732-1-home-page-3095910.png"
+              }
+            },
+            "pp_title_4": {
+              "type": "_power-picks-title",
+              "settings": {
+                "title": "The World's Most Powerful Antioxidant"
+              }
+            },
+            "pp_desc_4": {
+              "type": "_power-picks-description",
+              "settings": {
+                "description": "With unmatched 95% absorption, this international industry-leader has kept millions young and energized."
+              }
+            },
+            "pp_button_4": {
+              "type": "_power-picks-button",
+              "settings": {
+                "label": "Shop now"
+              }
+            }
+          },
+          "block_order": [
+            "pp_image_4",
+            "pp_title_4",
+            "pp_desc_4",
+            "pp_button_4"
+          ]
+        }
+      },
+      "block_order": [
+        "pp_card_1",
+        "pp_card_2",
+        "pp_card_3",
+        "pp_card_4"
+      ]
     }
   },
   "order": [
     "hero_slideshow",
     "shop_by_category",
     "product_list_fa6P9H",
-    "brand_carousel"
+    "brand_carousel",
+    "power_picks"
   ]
 }

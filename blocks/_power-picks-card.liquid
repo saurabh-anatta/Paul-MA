@@ -1,0 +1,60 @@
+<div class="power-picks-card" {{ block.shopify_attributes }}>
+  {% content_for 'blocks' %}
+</div>
+
+{% stylesheet %}
+  .power-picks-card {
+    display: flex;
+    flex-direction: column;
+    background: #FFFFFF;
+    border-radius: 16px 16px 12px 12px;
+    overflow: hidden;
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    width: calc(
+      (100% - (var(--carousel-gap, 32px) * (var(--carousel-columns, 4) - 1))) /
+        var(--carousel-columns, 4)
+    );
+  }
+
+  @media screen and (max-width: 749px) {
+    .power-picks-card {
+      width: calc(
+        (100% - (var(--carousel-gap, 16px) * (var(--carousel-mobile-columns, 1) - 1))) /
+          var(--carousel-mobile-columns, 1)
+      );
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Power picks card",
+  "tag": null,
+  "blocks": [
+    {
+      "type": "_power-picks-image"
+    },
+    {
+      "type": "_power-picks-title"
+    },
+    {
+      "type": "_power-picks-description"
+    },
+    {
+      "type": "_power-picks-button"
+    },
+    {
+      "type": "@theme"
+    },
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Power picks card"
+    }
+  ]
+}
+{% endschema %}

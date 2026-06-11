@@ -1,0 +1,371 @@
+{%- liquid
+  assign heading = section.settings.heading
+  assign background_image = section.settings.background_image
+  assign columns = section.settings.columns
+  assign columns_gap = section.settings.columns_gap
+  assign mobile_columns = section.settings.mobile_columns
+-%}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
+
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div
+  class="
+    section
+    section--full-width
+    color-{{ section.settings.color_scheme }}
+    power-picks-carousel
+    spacing-style
+  "
+  style="
+    --carousel-columns: {{ columns }};
+    --carousel-gap: {{ columns_gap }}px;
+    --carousel-mobile-columns: {{ mobile_columns }};
+    {% render 'spacing-style', settings: section.settings %}
+  "
+  data-testid="power-picks-carousel-section"
+>
+  {%- if background_image != blank -%}
+    {%- assign bg_sizes = '(min-width: 1200px) 1536px, 100vw' -%}
+    {{
+      background_image
+      | image_url: width: background_image.width
+      | image_tag:
+        sizes: bg_sizes,
+        widths: '750,1100,1536,2000',
+        loading: 'lazy',
+        class: 'power-picks-carousel__background',
+        alt: ''
+    }}
+  {%- endif -%}
+
+  <div class="power-picks-carousel__content">
+    {%- if heading != blank -%}
+      <div class="power-picks-carousel__header">
+        <h2 class="power-picks-carousel__heading">{{ heading }}</h2>
+      </div>
+    {%- endif -%}
+
+    <div class="power-picks-carousel__track" data-track>
+      {% content_for 'blocks' %}
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  const section = document.querySelector('[data-testid="power-picks-carousel-section"]');
+  if (section) {
+    const track = section.querySelector('[data-track]');
+    if (track) {
+      let isDown = false;
+      let startX;
+      let scrollLeft;
+
+      track.addEventListener('mousedown', (e) => {
+        isDown = true;
+        startX = e.pageX - track.offsetLeft;
+        scrollLeft = track.scrollLeft;
+      });
+
+      track.addEventListener('mouseleave', () => { isDown = false; });
+      track.addEventListener('mouseup', () => { isDown = false; });
+
+      track.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - track.offsetLeft;
+        const walk = (x - startX) * 1.5;
+        track.scrollLeft = scrollLeft - walk;
+      });
+    }
+  }
+</script>
+
+{% stylesheet %}
+  .power-picks-carousel {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .power-picks-carousel__background {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .power-picks-carousel__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    max-width: 1408px;
+    margin-inline: auto;
+    padding-inline: 64px;
+  }
+
+  .power-picks-carousel__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-block-end: 32px;
+  }
+
+  .power-picks-carousel__heading {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 48px;
+    color: #FFFFFF;
+    margin: 0;
+  }
+
+  .power-picks-carousel__track {
+    display: flex;
+    gap: var(--carousel-gap, 32px);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .power-picks-carousel__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .power-picks-carousel__content {
+      padding-inline: 16px;
+    }
+
+    .power-picks-carousel__heading {
+      font-size: 28px;
+      line-height: 36px;
+    }
+
+    .power-picks-carousel__header {
+      margin-block-end: 20px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Power picks carousel",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "blocks": [
+    {
+      "type": "_power-picks-card"
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Laurens Power Picks"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "Columns",
+      "min": 1,
+      "max": 8,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "select",
+      "id": "mobile_columns",
+      "label": "Mobile columns",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "range",
+      "id": "columns_gap",
+      "label": "Column gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "Power picks carousel",
+      "settings": {
+        "heading": "Laurens Power Picks",
+        "columns": 4,
+        "columns_gap": 32
+      },
+      "blocks": {
+        "card_1": {
+          "type": "_power-picks-card",
+          "blocks": {
+            "image_1": {
+              "type": "_power-picks-image"
+            },
+            "title_1": {
+              "type": "_power-picks-title",
+              "settings": {
+                "title": "The Closest Thing to the Fountain of Youth"
+              }
+            },
+            "desc_1": {
+              "type": "_power-picks-description",
+              "settings": {
+                "description": "Renew DNA and refresh 30+ trillion cells to fuel metabolism, stay mentally sharp and full of youthful energy."
+              }
+            },
+            "button_1": {
+              "type": "_power-picks-button",
+              "settings": {
+                "label": "Shop now"
+              }
+            }
+          },
+          "block_order": ["image_1", "title_1", "desc_1", "button_1"]
+        },
+        "card_2": {
+          "type": "_power-picks-card",
+          "blocks": {
+            "image_2": {
+              "type": "_power-picks-image"
+            },
+            "title_2": {
+              "type": "_power-picks-title",
+              "settings": {
+                "title": "Glass Skin Perfected by Science"
+              }
+            },
+            "desc_2": {
+              "type": "_power-picks-description",
+              "settings": {
+                "description": "Ultra-rich crème that refines skin structure, smooths wrinkles, and delivers a radiant, sculpted glow."
+              }
+            },
+            "button_2": {
+              "type": "_power-picks-button",
+              "settings": {
+                "label": "Shop now"
+              }
+            }
+          },
+          "block_order": ["image_2", "title_2", "desc_2", "button_2"]
+        },
+        "card_3": {
+          "type": "_power-picks-card",
+          "blocks": {
+            "image_3": {
+              "type": "_power-picks-image"
+            },
+            "title_3": {
+              "type": "_power-picks-title",
+              "settings": {
+                "title": "300x More Powerful Than Competitors"
+              }
+            },
+            "desc_3": {
+              "type": "_power-picks-description",
+              "settings": {
+                "description": "Called the \"Magic Bullet\" against aging, get the antioxidant benefits of wine, without the aftermath."
+              }
+            },
+            "button_3": {
+              "type": "_power-picks-button",
+              "settings": {
+                "label": "Shop now"
+              }
+            }
+          },
+          "block_order": ["image_3", "title_3", "desc_3", "button_3"]
+        },
+        "card_4": {
+          "type": "_power-picks-card",
+          "blocks": {
+            "image_4": {
+              "type": "_power-picks-image"
+            },
+            "title_4": {
+              "type": "_power-picks-title",
+              "settings": {
+                "title": "The World's Most Powerful Antioxidant"
+              }
+            },
+            "desc_4": {
+              "type": "_power-picks-description",
+              "settings": {
+                "description": "With unmatched 95% absorption, this international industry-leader has kept millions young and energized."
+              }
+            },
+            "button_4": {
+              "type": "_power-picks-button",
+              "settings": {
+                "label": "Shop now"
+              }
+            }
+          },
+          "block_order": ["image_4", "title_4", "desc_4", "button_4"]
+        }
+      },
+      "block_order": ["card_1", "card_2", "card_3", "card_4"]
+    }
+  ]
+}
+{% endschema %}

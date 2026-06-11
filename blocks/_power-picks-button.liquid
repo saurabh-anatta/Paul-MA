@@ -1,0 +1,64 @@
+{%- liquid
+  assign label = block.settings.label
+  assign link = block.settings.link
+-%}
+
+<div class="power-picks-button-wrapper" {{ block.shopify_attributes }}>
+  {%- if link != blank -%}
+    <a href="{{ link }}" class="power-picks-button">
+      {{- label -}}
+    </a>
+  {%- else -%}
+    <span class="power-picks-button">
+      {{- label -}}
+    </span>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  .power-picks-button-wrapper {
+    margin: 16px 16px 24px;
+    margin-top: auto;
+  }
+
+  .power-picks-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #141414;
+    border: 1px solid #141414;
+    border-radius: 32px;
+    padding: 12px 24px;
+    font-family: var(--font-subheading--family);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #FFFFFF;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .power-picks-button:hover {
+    opacity: 0.85;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Button",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link"
+    }
+  ]
+}
+{% endschema %}

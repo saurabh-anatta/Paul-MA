@@ -1,0 +1,29 @@
+<p class="power-picks-description" {{ block.shopify_attributes }}>
+  {{- block.settings.description -}}
+</p>
+
+{% stylesheet %}
+  .power-picks-description {
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    color: #7E7E7E;
+    margin: 4px 16px 0;
+    padding-block: 4px;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Description",
+  "tag": null,
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description"
+    }
+  ]
+}
+{% endschema %}

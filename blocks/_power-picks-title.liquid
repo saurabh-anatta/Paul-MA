@@ -1,0 +1,29 @@
+<h3 class="power-picks-title" {{ block.shopify_attributes }}>
+  {{- block.settings.title -}}
+</h3>
+
+{% stylesheet %}
+  .power-picks-title {
+    font-family: var(--font-subheading--family);
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 31px;
+    color: #141414;
+    margin: 16px 16px 0;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Title",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Card title"
+    }
+  ]
+}
+{% endschema %}
