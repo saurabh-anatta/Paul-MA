@@ -28,7 +28,7 @@
           },
           "blocks": {
             "localization": {
-              "type": "_footer-localization"
+              "type": "footer-localization"
             },
             "signup_heading": {
               "type": "text",
