@@ -64,8 +64,12 @@
   endcapture
   # theme-check-enable UniqueStaticBlockId
 
+  capture header_cta
+    content_for 'block', type: '_header-cta', id: 'header-cta'
+  endcapture
+
   capture actions
-    render 'header-actions', customer_account_menu: section.settings.customer_account_menu, display_style: section.settings.actions_display_style, section: section
+    render 'header-actions', customer_account_menu: section.settings.customer_account_menu, display_style: section.settings.actions_display_style, section: section, header_cta: header_cta
   endcapture
 
   if shop.customer_accounts_enabled
@@ -1111,6 +1115,45 @@
     font-family: var(--menu-localization-font);
     font-size: var(--menu-localization-font-size);
   }
+
+  /* === Custom header overrides for SHOP.COM design === */
+
+  /* Search pill styling */
+  .header .search-action .search-modal__input,
+  .header .search-action input[type='search'],
+  .header .search-action input[type='text'] {
+    background: #F1F1F1;
+    border-radius: 40px;
+    border: none;
+    font-family: var(--font-body--family);
+    font-size: 0.875rem;
+  }
+
+  .header .search-action .search-modal__input::placeholder,
+  .header .search-action input::placeholder {
+    color: #ACACAC;
+  }
+
+  .header .search-action form {
+    border-radius: 40px;
+    overflow: hidden;
+  }
+
+  /* Sign-in label beside account icon */
+  .header-actions__sign-in-label {
+    font-family: var(--font-body--family);
+    font-size: 0.75rem;
+    line-height: 1rem;
+    color: var(--color-foreground);
+    white-space: nowrap;
+    margin-inline-start: 4px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .header-actions__sign-in-label {
+      display: none;
+    }
+  }
 {% endstylesheet %}
 
 {% unless request.design_mode %}
@@ -1646,6 +1689,32 @@
       ],
       "default": "default",
       "visible_if": "{{ section.settings.enable_transparent_header_collection }}"
+    },
+    {
+      "type": "header",
+      "content": "Drawer"
+    },
+    {
+      "type": "link_list",
+      "id": "drawer_account_menu",
+      "label": "Account menu"
+    },
+    {
+      "type": "link_list",
+      "id": "drawer_features_menu",
+      "label": "Features menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_drawer_social",
+      "label": "Show social icons",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_drawer_country",
+      "label": "Show country selector",
+      "default": true
     }
   ],
   "presets": []

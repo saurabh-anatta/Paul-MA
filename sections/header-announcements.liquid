@@ -1,4 +1,4 @@
-{% if section.blocks.size > 1 %}
+{% if section.settings.layout == 'center' and section.blocks.size > 1 %}
   <script
     src="{{ 'announcement-bar.js' | asset_url }}"
     type="module"
@@ -8,32 +8,42 @@
 
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
 <aside
-  class="announcement-bar spacing-style section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }}"
+  class="announcement-bar spacing-style section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }}{% if section.settings.hide_on_mobile %} announcement-bar--hide-mobile{% endif %}"
   style="{% render 'spacing-padding', settings: section.settings %}; --border-bottom-width: {{ section.settings.divider_width }}px;"
 >
-  {% liquid
-    assign autoplay = false
-    assign show_arrows = false
-    if section.blocks.size > 1
-      assign autoplay = true
-      assign show_arrows = true
-    endif
-  %}
+  {% capture all_blocks %}
+    {% content_for 'blocks' %}
+  {% endcapture %}
 
-  <announcement-bar-component
-    class="announcement-bar__slider"
-    {% if autoplay == true %}
-      autoplay="{{ section.settings.speed }}" aria-live="polite"
-    {% endif %}
-  >
-    {% if show_arrows %}
-      {% render 'slideshow-arrows', icon_style: 'chevron' %}
-    {% endif %}
-
-    <div class="announcement-bar__slides">
-      {% content_for 'blocks' %}
+  {% if section.settings.layout == 'split' %}
+    <div class="announcement-bar__split">
+      {{ all_blocks }}
     </div>
-  </announcement-bar-component>
+  {% else %}
+    {% liquid
+      assign autoplay = false
+      assign show_arrows = false
+      if section.blocks.size > 1
+        assign autoplay = true
+        assign show_arrows = true
+      endif
+    %}
+
+    <announcement-bar-component
+      class="announcement-bar__slider"
+      {% if autoplay == true %}
+        autoplay="{{ section.settings.speed }}" aria-live="polite"
+      {% endif %}
+    >
+      {% if show_arrows %}
+        {% render 'slideshow-arrows', icon_style: 'chevron' %}
+      {% endif %}
+
+      <div class="announcement-bar__slides">
+        {{ all_blocks }}
+      </div>
+    </announcement-bar-component>
+  {% endif %}
 </aside>
 
 {% stylesheet %}
@@ -119,6 +129,39 @@
     position: absolute;
     inset: 0;
   }
+
+  /* Split layout (3-zone row) */
+  .announcement-bar__split {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 16px;
+  }
+
+  .announcement-bar__split .announcement-links {
+    flex: 0 0 auto;
+  }
+
+  .announcement-bar__split slideshow-slide,
+  .announcement-bar__split .announcement-bar__slide {
+    flex: 1 1 auto;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .announcement-bar__split .announcement-badge {
+    flex: 0 0 auto;
+    margin-inline-start: auto;
+  }
+
+  /* Hide on mobile */
+  @media screen and (max-width: 749px) {
+    .announcement-bar--hide-mobile {
+      display: none;
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}
@@ -127,12 +170,40 @@
   "blocks": [
     {
       "type": "_announcement"
+    },
+    {
+      "type": "_announcement-links"
+    },
+    {
+      "type": "_announcement-badge"
     }
   ],
   "enabled_on": {
     "groups": ["header"]
   },
   "settings": [
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "split",
+          "label": "Split"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_mobile",
+      "label": "Hide on mobile",
+      "default": false
+    },
     {
       "type": "range",
       "id": "speed",

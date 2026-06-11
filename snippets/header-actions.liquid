@@ -7,6 +7,7 @@
   @param {block} [block] - The block object, used for Shopify editor attributes.
   @param {string} [display_style] - Controls display mode for header actions: 'icon' or 'text'.
   @param {string} [customer_account_menu] - The menu handle passed to the shopify-account component.
+  @param {string} [header_cta] - Pre-captured HTML for the header CTA block.
 
   @example
   {% render 'header-actions', section: section %}
@@ -63,6 +64,10 @@
   {% endif %}
   {{- block.shopify_attributes -}}
 >
+  {% if header_cta != blank %}
+    {{ header_cta }}
+  {% endif %}
+
   {% if shop.customer_accounts_enabled %}
     {% liquid
       assign account_actions_style = ''
@@ -108,6 +113,7 @@
           >
             {{ account_icon }}
           </span>
+          <span slot="signed-out-avatar" class="header-actions__sign-in-label">Sign in</span>
         {% endif %}
       </shopify-account>
     </div>

@@ -76,11 +76,11 @@
       <button
         class="button close-button menu-drawer__close-button"
         type="button"
-        aria-label="{{ 'actions.close' | t }}"
+        aria-label="Close menu"
         on:click="/close"
       >
         <span class="svg-wrapper header-drawer-icon header-drawer-icon--close">
-          {{- 'icon-close.svg' | inline_asset_content -}}
+          <img src="{{ 'icon-new-exit.svg' | asset_url }}" alt="" width="24" height="24" style="width:24px;height:24px;">
         </span>
       </button>
       <nav
@@ -702,6 +702,84 @@
           {% endif %}
         {%- endif -%}
       </div>
+
+      {%- comment -%} Account group links {%- endcomment -%}
+      {% if section.settings.drawer_account_menu != blank %}
+        {% assign drawer_account_icons = 'noun-user-514033-1.svg,icon-track-orders-24px-1.svg,icon-orders-24px-1.svg,icon-help-outline-24px-1.svg' | split: ',' %}
+        <div class="menu-drawer__group">
+          <p class="menu-drawer__group-heading">Account</p>
+          <ul class="menu-drawer__group-list" role="list">
+            {% for link in section.settings.drawer_account_menu.links %}
+              <li class="menu-drawer__group-item">
+                <a href="{{ link.url }}" class="menu-drawer__group-link">
+                  <span class="menu-drawer__group-icon">
+                    {% if forloop.index0 < drawer_account_icons.size %}
+                      <img src="{{ drawer_account_icons[forloop.index0] | asset_url }}" alt="" width="24" height="24" style="width:24px;height:24px;" loading="lazy">
+                    {% else %}
+                      <img src="{{ 'icon-caret.svg' | asset_url }}" alt="" width="24" height="24" style="width:24px;height:24px;" loading="lazy">
+                    {% endif %}
+                  </span>
+                  <span class="menu-drawer__group-text">{{ link.title | escape }}</span>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+
+      {%- comment -%} Features group links {%- endcomment -%}
+      {% if section.settings.drawer_features_menu != blank %}
+        {% assign drawer_features_icons = 'icon-list-manager-24px-1.svg,icon-egifts-24px-1.svg,icon-price-alerts-24px-1.svg,icon-shopbuddy-24px-1.svg,icon-deals-24px-1.svg,np-icon-1.svg' | split: ',' %}
+        <div class="menu-drawer__group">
+          <p class="menu-drawer__group-heading">Features</p>
+          <ul class="menu-drawer__group-list" role="list">
+            {% for link in section.settings.drawer_features_menu.links %}
+              <li class="menu-drawer__group-item">
+                <a href="{{ link.url }}" class="menu-drawer__group-link">
+                  <span class="menu-drawer__group-icon">
+                    {% if forloop.index0 < drawer_features_icons.size %}
+                      <img src="{{ drawer_features_icons[forloop.index0] | asset_url }}" alt="" width="24" height="24" style="width:24px;height:24px;" loading="lazy">
+                    {% else %}
+                      <img src="{{ 'icon-caret.svg' | asset_url }}" alt="" width="24" height="24" style="width:24px;height:24px;" loading="lazy">
+                    {% endif %}
+                  </span>
+                  <span class="menu-drawer__group-text">{{ link.title | escape }}</span>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+
+      {%- comment -%} Country selector row {%- endcomment -%}
+      {% if section.settings.show_drawer_country %}
+        <div class="menu-drawer__country-row">
+          <img src="{{ 'us-united-states-streamline-flagpack.svg' | asset_url }}" alt="US flag" width="24" height="24" style="width:24px;height:24px;" loading="lazy">
+          <span class="menu-drawer__country-label">Country</span>
+          <span class="menu-drawer__country-value">United States (USD $)</span>
+        </div>
+      {% endif %}
+
+      {%- comment -%} Social icons row {%- endcomment -%}
+      {% if section.settings.show_drawer_social %}
+        <div class="menu-drawer__social-row">
+          <a href="#" class="menu-drawer__social-link" aria-label="Facebook">
+            <img src="{{ 'social-icons-11.svg' | asset_url }}" alt="" width="24" height="24" style="width:24px;height:24px;" loading="lazy">
+          </a>
+          <a href="#" class="menu-drawer__social-link" aria-label="X (Twitter)">
+            <img src="{{ 'social-icons-12.svg' | asset_url }}" alt="" width="24" height="24" style="width:24px;height:24px;" loading="lazy">
+          </a>
+          <a href="#" class="menu-drawer__social-link" aria-label="Instagram">
+            <img src="{{ 'social-icons-13.svg' | asset_url }}" alt="" width="24" height="24" style="width:24px;height:24px;" loading="lazy">
+          </a>
+          <a href="#" class="menu-drawer__social-link" aria-label="YouTube">
+            <img src="{{ 'social-icons-14.svg' | asset_url }}" alt="" width="24" height="24" style="width:24px;height:24px;" loading="lazy">
+          </a>
+          <a href="#" class="menu-drawer__social-link" aria-label="Pinterest">
+            <img src="{{ 'social-icons-15.svg' | asset_url }}" alt="" width="24" height="24" style="width:24px;height:24px;" loading="lazy">
+          </a>
+        </div>
+      {% endif %}
 
       {% liquid
         if block_settings.menu_style == 'featured_collections'
@@ -1409,5 +1487,130 @@
 
   .drawer-localization .language-selector .svg-wrapper.icon-caret svg {
     transform: none;
+  }
+
+  /* Drawer group sections (Account / Features) */
+  .menu-drawer__group {
+    padding-inline: var(--drawer-padding);
+    padding-block: var(--padding-sm) 0;
+    border-block-start: 1px solid var(--color-border);
+  }
+
+  .menu-drawer__group-heading {
+    font-family: var(--font-body--family);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    line-height: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-foreground);
+    opacity: 0.5;
+    margin: 0 0 var(--margin-xs) 0;
+  }
+
+  .menu-drawer__group-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .menu-drawer__group-item + .menu-drawer__group-item {
+    margin-block-start: 0;
+  }
+
+  .menu-drawer__group-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-block: 10px;
+    text-decoration: none;
+    color: var(--color-foreground);
+    font-family: var(--font-body--family);
+    font-size: 0.9375rem;
+    line-height: 1.25;
+  }
+
+  .menu-drawer__group-link:hover {
+    opacity: 0.7;
+  }
+
+  .menu-drawer__group-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+
+  .menu-drawer__group-icon img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+  }
+
+  .menu-drawer__group-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Drawer country selector row */
+  .menu-drawer__country-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: var(--padding-md) var(--drawer-padding);
+    border-block-start: 1px solid var(--color-border);
+    font-family: var(--font-body--family);
+    font-size: 0.875rem;
+    line-height: 1.25;
+    color: var(--color-foreground);
+  }
+
+  .menu-drawer__country-row img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  .menu-drawer__country-label {
+    font-weight: 600;
+  }
+
+  .menu-drawer__country-value {
+    margin-inline-start: auto;
+    opacity: 0.7;
+  }
+
+  /* Drawer social icons row */
+  .menu-drawer__social-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: var(--padding-md) var(--drawer-padding);
+    border-block-start: 1px solid var(--color-border);
+  }
+
+  .menu-drawer__social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    color: var(--color-foreground);
+    transition: opacity var(--animation-speed) var(--animation-easing);
+  }
+
+  .menu-drawer__social-link:hover {
+    opacity: 0.7;
+  }
+
+  .menu-drawer__social-link img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
   }
 {% endstylesheet %}
