@@ -69,6 +69,14 @@
   %}
 </div>
 
+{% stylesheet %}
+  @media screen and (max-width: 749px) {
+    .resource-list--grid {
+      gap: 12px;
+    }
+  }
+{% endstylesheet %}
+
 {% schema %}
 {
   "name": "t:names.collection_list",
