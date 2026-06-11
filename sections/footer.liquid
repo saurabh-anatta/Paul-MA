@@ -87,6 +87,98 @@
       grid-column: 1 / -1;
     }
   }
+
+  /* ===== Custom footer overrides for Figma design ===== */
+
+  /* Brand bar spans full grid width */
+  .footer-content .footer-brand-bar {
+    grid-column: 1 / -1;
+  }
+
+  /* Desktop grid: left column (360px max) + 4 equal menu columns */
+  @media screen and (min-width: 990px) {
+    .footer-content[style*='--grid-columns: 4'] {
+      grid-template-columns: minmax(280px, 360px) repeat(4, minmax(0, 1fr));
+      column-gap: 32px;
+    }
+  }
+
+  /* Tablet: 2 columns for menus, left group full-width */
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    .footer-content .footer-brand-bar {
+      grid-column: 1 / -1;
+    }
+  }
+
+  /* Menu heading styles: Figma DM Sans 600 16px/16px, letter-spacing 0.64px, uppercase */
+  .footer-content .menu__heading__default,
+  .footer-content .menu__heading__accordion {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 16px;
+    letter-spacing: 0.64px;
+    text-transform: uppercase;
+  }
+
+  /* Gap between menu heading and link list: 28px per Figma */
+  .footer-content .menu:not(:has(> .menu__heading--empty)) .details-content {
+    margin-block-start: 28px;
+  }
+
+  /* Social icons gap: 32px per Figma */
+  .footer-content .social-icons__wrapper {
+    gap: 32px;
+    justify-content: flex-start;
+  }
+
+  /* Email signup pill: split border-radius for integrated mode */
+  .footer-content .email-signup__input-group--integrated {
+    border-color: transparent;
+    overflow: hidden;
+  }
+
+  .footer-content .email-signup__input-group--integrated .email-signup__input {
+    padding: 12px 24px;
+    background-color: #FFFFFF;
+    color: #141414;
+    border-radius: 40px 0 0 40px;
+  }
+
+  .footer-content .email-signup__input-group--integrated .email-signup__input::placeholder {
+    color: #767676;
+    opacity: 1;
+  }
+
+  .footer-content .email-signup__button--integrated {
+    margin: 0;
+    border-radius: 0 40px 40px 0;
+    flex-shrink: 0;
+  }
+
+  .footer-content .email-signup__button--integrated.email-signup__button--text {
+    padding: 12px 24px;
+  }
+
+  /* Disclaimer links: underline text-decoration per Figma */
+  .footer-content .text-block.custom-typography a {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  /* Mobile: single column, full-width elements */
+  @media screen and (max-width: 749px) {
+    .footer-content {
+      grid-template-columns: 1fr;
+    }
+
+    .footer-content .footer-brand-bar {
+      grid-column: 1;
+    }
+
+    .footer-content .email-signup__input-group--integrated {
+      flex-direction: row;
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}
@@ -135,6 +227,12 @@
     },
     {
       "type": "email-signup"
+    },
+    {
+      "type": "_footer-localization"
+    },
+    {
+      "type": "_footer-brand-bar"
     }
   ],
   "enabled_on": {

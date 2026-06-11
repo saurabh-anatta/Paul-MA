@@ -1,132 +1,114 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
- {
+{
   "type": "footer",
   "name": "t:names.footer",
   "sections": {
     "footer": {
       "type": "footer",
       "blocks": {
-        "group_wErUQf": {
+        "left_group": {
           "type": "group",
-          "name": "Join our email list",
           "settings": {
-            "link": "",
-            "open_in_new_tab": false,
             "content_direction": "column",
             "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "align_baseline": false,
             "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
+            "vertical_alignment_flex_direction_column": "flex-start",
+            "gap": 40,
             "width": "fill",
-            "custom_width": 100,
             "width_mobile": "fill",
-            "custom_width_mobile": 100,
             "height": "fit",
-            "custom_height": 100,
             "inherit_color_scheme": true,
-            "color_scheme": "",
             "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
             "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
             "border_radius": 0,
-            "placeholder": "",
             "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
             "padding-inline-end": 0
           },
           "blocks": {
-            "text_pF6rVi": {
+            "localization": {
+              "type": "_footer-localization"
+            },
+            "signup_heading": {
               "type": "text",
-              "name": "Heading",
               "settings": {
-                "text": "<h2>Join our email list</h2>",
+                "text": "<p>Sign up for new product launches, priority access and updates</p>",
                 "width": "100%",
-                "max_width": "normal",
+                "max_width": "none",
                 "alignment": "left",
-                "type_preset": "h3",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
+                "type_preset": "h5",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              },
-              "blocks": {}
+              }
             },
-            "text_HafH7P": {
-              "type": "text",
-              "name": "Text",
-              "settings": {
-                "text": "<p>Get exclusive deals and early access to new products.</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "email-signup_HafH7P": {
+            "email_signup": {
               "type": "email-signup",
-              "name": "Email Signup",
               "settings": {
-                "width": "fill"
+                "width": "fill",
+                "inherit_color_scheme": true,
+                "integrated_button": true,
+                "border_style": "all",
+                "border_width": 1,
+                "border_radius": 40,
+                "display_type": "text",
+                "style_class": "button",
+                "label": "Subscribe",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              }
+            },
+            "disclaimer": {
+              "type": "text",
+              "settings": {
+                "text": "<p>By signing up you agree to our <a href=\"/policies/terms-of-service\">Terms of Use</a> & <a href=\"/policies/privacy-policy\">Privacy Policy</a></p>",
+                "width": "100%",
+                "max_width": "none",
+                "alignment": "left",
+                "type_preset": "custom",
+                "font": "var(--font-body--family)",
+                "font_size": "0.75rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              }
+            },
+            "social_links": {
+              "type": "social-links",
+              "settings": {
+                "facebook_url": "https://www.facebook.com/SHOPCOM",
+                "instagram_url": "https://www.instagram.com/shopcom",
+                "tiktok_url": "https://www.tiktok.com/@shopcom",
+                "twitter_url": "https://www.twitter.com/shopcom",
+                "youtube_url": "https://www.youtube.com/shopcom"
               }
             }
           },
           "block_order": [
-            "text_pF6rVi",
-            "text_HafH7P",
-            "email-signup_HafH7P"
+            "localization",
+            "signup_heading",
+            "email_signup",
+            "disclaimer",
+            "social_links"
           ]
         },
-        "menu_footer": {
+        "menu_shop": {
           "type": "menu",
           "settings": {
             "menu": "footer",
-            "heading": "",
-            "menu_spacing": 12,
-            "show_as_accordion": false,
+            "heading": "Shop",
+            "menu_spacing": 8,
+            "show_as_accordion": true,
             "accordion_icon": "plus",
             "accordion_dividers": false,
             "inherit_color_scheme": true,
@@ -138,13 +120,13 @@
             "padding-inline-end": 0
           }
         },
-        "menu_main": {
+        "menu_features": {
           "type": "menu",
           "settings": {
             "menu": "main-menu",
-            "heading": "",
-            "menu_spacing": 12,
-            "show_as_accordion": false,
+            "heading": "Features",
+            "menu_spacing": 8,
+            "show_as_accordion": true,
             "accordion_icon": "plus",
             "accordion_dividers": false,
             "inherit_color_scheme": true,
@@ -155,20 +137,61 @@
             "padding-inline-start": 0,
             "padding-inline-end": 0
           }
+        },
+        "menu_learn": {
+          "type": "menu",
+          "settings": {
+            "menu": "footer",
+            "heading": "Learn",
+            "menu_spacing": 8,
+            "show_as_accordion": true,
+            "accordion_icon": "plus",
+            "accordion_dividers": false,
+            "inherit_color_scheme": true,
+            "heading_preset": "paragraph",
+            "link_preset": "paragraph",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          }
+        },
+        "menu_support": {
+          "type": "menu",
+          "settings": {
+            "menu": "footer",
+            "heading": "Support",
+            "menu_spacing": 8,
+            "show_as_accordion": true,
+            "accordion_icon": "plus",
+            "accordion_dividers": false,
+            "inherit_color_scheme": true,
+            "heading_preset": "paragraph",
+            "link_preset": "paragraph",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          }
+        },
+        "brand_bar": {
+          "type": "_footer-brand-bar"
         }
       },
       "block_order": [
-        "group_wErUQf",
-        "menu_footer",
-        "menu_main"
+        "left_group",
+        "menu_shop",
+        "menu_features",
+        "menu_learn",
+        "menu_support",
+        "brand_bar"
       ],
-      "name": "t:names.footer",
       "settings": {
         "section_width": "page-width",
-        "gap": 40,
-        "color_scheme": "scheme-5",
-        "padding-block-start": 36,
-        "padding-block-end": 36
+        "gap": 32,
+        "color_scheme": "scheme-4",
+        "padding-block-start": 72,
+        "padding-block-end": 0
       }
     },
     "utilities": {
@@ -177,7 +200,7 @@
         "section_width": "page-width",
         "gap": 24,
         "divider_thickness": 1,
-        "color_scheme": "scheme-5",
+        "color_scheme": "scheme-4",
         "padding-block-start": 12,
         "padding-block-end": 16
       },

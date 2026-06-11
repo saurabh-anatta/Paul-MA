@@ -1,0 +1,93 @@
+<div class="footer-brand-bar" {{ block.shopify_attributes }}>
+  <div class="footer-brand-bar__logo">
+    <img
+      src="{{ 'shop-logo-all-white-1.svg' | asset_url }}"
+      alt="SHOP.COM"
+      width="356"
+      height="48"
+      loading="lazy"
+    >
+  </div>
+  <div class="footer-brand-bar__cards">
+    <img src="{{ 'img.svg' | asset_url }}" alt="Visa" width="57" height="36" loading="lazy">
+    <img src="{{ 'img-2.svg' | asset_url }}" alt="Mastercard" width="57" height="36" loading="lazy">
+    <img src="{{ 'img-3.svg' | asset_url }}" alt="American Express" width="57" height="36" loading="lazy">
+    <img src="{{ 'img-4.svg' | asset_url }}" alt="PayPal" width="57" height="36" loading="lazy">
+    <img src="{{ 'img-5.svg' | asset_url }}" alt="Discover" width="57" height="36" loading="lazy">
+    <img src="{{ 'img-6.svg' | asset_url }}" alt="Shop Pay" width="57" height="36" loading="lazy">
+  </div>
+</div>
+
+{% stylesheet %}
+  .footer-brand-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-block-start: 52px;
+    padding-block-end: 52px;
+  }
+
+  .footer-brand-bar__logo {
+    display: flex;
+    align-items: flex-end;
+    flex-shrink: 0;
+  }
+
+  .footer-brand-bar__logo img {
+    width: auto;
+    height: 64px;
+    max-width: 475px;
+  }
+
+  .footer-brand-bar__cards {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .footer-brand-bar__cards img {
+    width: 57px;
+    height: 36px;
+    flex-shrink: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .footer-brand-bar {
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+      padding-block-start: 40px;
+      padding-block-end: 40px;
+    }
+
+    .footer-brand-bar__logo img {
+      height: 48px;
+      max-width: 356px;
+    }
+
+    .footer-brand-bar__cards {
+      justify-content: center;
+    }
+
+    .footer-brand-bar__cards img {
+      width: 44px;
+      height: 28px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Brand bar",
+  "tag": null,
+  "settings": [],
+  "presets": [
+    {
+      "name": "Brand bar",
+      "category": "t:categories.footer"
+    }
+  ]
+}
+{% endschema %}
