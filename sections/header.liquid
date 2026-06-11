@@ -64,6 +64,14 @@
   endcapture
   # theme-check-enable UniqueStaticBlockId
 
+  capture header_cta
+    content_for 'block', type: '_header-cta', id: 'header-cta'
+  endcapture
+
+  capture header_promo
+    content_for 'block', type: '_header-promo', id: 'header-promo'
+  endcapture
+
   capture actions
     render 'header-actions', customer_account_menu: section.settings.customer_account_menu, display_style: section.settings.actions_display_style, section: section
   endcapture
@@ -96,9 +104,15 @@
       endif
     endif
   endif
-  capture search
-    render 'search', style: search_style, class: search_class, display_style: section.settings.actions_display_style
-  endcapture
+  if section.settings.search_display == 'bar'
+    capture search
+      render 'header-search-bar'
+    endcapture
+  else
+    capture search
+      render 'search', style: search_style, class: search_class, display_style: section.settings.actions_display_style
+    endcapture
+  endif
 
   # Skip drawer search under specific conditions:
   # Always render if search_row is bottom
@@ -165,6 +179,10 @@
 
   if collapse_header_paddings_class
     assign class = class | append: ' ' | append: collapse_header_paddings_class
+  endif
+
+  if section.settings.show_drawer_button_desktop
+    assign class = class | append: ' header--show-drawer-desktop'
   endif
 
   # Determine transparent background value
@@ -375,6 +393,12 @@
         search: search,
         drawer_search: drawer_search
       %}
+      {%- if row == 'top' and header_cta != blank -%}
+        {{ header_cta }}
+      {%- endif -%}
+      {%- if row == 'bottom' and header_promo != blank -%}
+        {{ header_promo }}
+      {%- endif -%}
     {% endcapture %}
 
     {% assign content = content | strip %}
@@ -957,6 +981,19 @@
     content-visibility: visible;
   }
 
+  /* Desktop drawer button visibility */
+  .header--show-drawer-desktop .header-drawer {
+    @media screen and (min-width: 750px) {
+      display: flex;
+    }
+  }
+
+  .header--show-drawer-desktop .header-drawer .header__icon--menu {
+    @media screen and (min-width: 750px) {
+      display: flex;
+    }
+  }
+
   /* Dropdown Localization Styles */
   .dropdown-localization__button {
     display: flex;
@@ -1208,6 +1245,38 @@
     },
     {
       "type": "header",
+      "content": "Drawer menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_drawer_button_desktop",
+      "label": "Show drawer on desktop",
+      "default": false
+    },
+    {
+      "type": "link_list",
+      "id": "drawer_menu_account",
+      "label": "Drawer account menu"
+    },
+    {
+      "type": "link_list",
+      "id": "drawer_menu_features",
+      "label": "Drawer features menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_drawer_localization",
+      "label": "Show locale in drawer",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_drawer_social",
+      "label": "Show social in drawer",
+      "default": true
+    },
+    {
+      "type": "header",
       "content": "t:content.search"
     },
     {
@@ -1215,6 +1284,23 @@
       "id": "show_search",
       "label": "t:settings.search_icon",
       "default": true
+    },
+    {
+      "type": "select",
+      "id": "search_display",
+      "label": "Search display",
+      "options": [
+        {
+          "value": "icon",
+          "label": "Icon"
+        },
+        {
+          "value": "bar",
+          "label": "Inline bar"
+        }
+      ],
+      "default": "icon",
+      "visible_if": "{{ section.settings.show_search }}"
     },
     {
       "type": "select",

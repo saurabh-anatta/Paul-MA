@@ -1,0 +1,76 @@
+{% doc %}
+  Inline pill search bar for the header.
+  Renders when search_display is set to 'bar'.
+
+  @example
+  {% render 'header-search-bar' %}
+{% enddoc %}
+
+<form
+  action="{{ routes.search_url }}"
+  method="get"
+  class="header-search-bar"
+  role="search"
+>
+  <span class="header-search-bar__icon" aria-hidden="true">
+    {{ 'search-streamline-sharp-streamline-material-free.svg' | inline_asset_content }}
+  </span>
+  <input
+    type="search"
+    name="q"
+    class="header-search-bar__input"
+    placeholder="Search products"
+    autocomplete="off"
+    aria-label="Search products"
+  >
+</form>
+
+{% stylesheet %}
+  .header-search-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--color-border);
+    border-radius: 40px;
+    padding: 10px 20px;
+    background: var(--color-background);
+    width: 100%;
+    max-width: 100%;
+
+    @media screen and (min-width: 750px) {
+      max-width: 520px;
+      flex: 1;
+    }
+  }
+
+  .header-search-bar__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    color: var(--color-foreground);
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .header-search-bar__input {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: var(--font-body--family);
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--color-foreground);
+    width: 100%;
+    padding: 0;
+
+    &::placeholder {
+      color: #ACACAC;
+    }
+  }
+{% endstylesheet %}

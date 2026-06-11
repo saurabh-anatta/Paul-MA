@@ -1,0 +1,55 @@
+<a
+  {{ block.shopify_attributes }}
+  {% if block.settings.link != blank %}
+    href="{{ block.settings.link }}"
+  {% endif %}
+  class="header-cta"
+>
+  {{- block.settings.text -}}
+</a>
+
+{% stylesheet %}
+  .header-cta {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 20px;
+    border: 1px solid currentColor;
+    border-radius: 40px;
+    font-family: var(--font-body--family);
+    font-size: 14px;
+    line-height: 1;
+    text-decoration: none;
+    color: inherit;
+    white-space: nowrap;
+    transition: opacity var(--animation-speed) var(--animation-easing);
+
+    @media screen and (min-width: 750px) {
+      display: inline-flex;
+    }
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Header button",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Button text",
+      "default": "Take Quiz"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Button link"
+    }
+  ]
+}
+{% endschema %}

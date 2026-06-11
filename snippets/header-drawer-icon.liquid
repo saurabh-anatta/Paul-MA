@@ -1,0 +1,40 @@
+{% doc %}
+  Maps a drawer link title to a theme asset SVG icon.
+  Outputs inline SVG for matched titles, nothing for unmatched.
+
+  @param {string} title - The link title to map to an icon
+
+  @example
+  {% render 'header-drawer-icon', title: link.title %}
+{% enddoc %}
+
+{%- liquid
+  assign handle = title | handleize
+
+  case handle
+    when 'track-orders'
+      echo 'icon-track-orders-24px-1.svg' | inline_asset_content
+    when 'reorder-items'
+      echo 'icon-orders-24px-1.svg' | inline_asset_content
+    when 'help'
+      echo 'icon-help-outline-24px-1.svg' | inline_asset_content
+    when 'sign-in', 'account', 'my-account'
+      echo 'noun-user-514033-1.svg' | inline_asset_content
+    when 'home-shopping-list'
+      echo 'icon-track-orders-24px-1-2.svg' | inline_asset_content
+    when 'list-manager'
+      echo 'icon-list-manager-24px-1.svg' | inline_asset_content
+    when 'egifts', 'e-gifts', 'egift-cards'
+      echo 'icon-egifts-24px-1.svg' | inline_asset_content
+    when 'price-alerts'
+      echo 'icon-price-alerts-24px-1.svg' | inline_asset_content
+    when 'shop-buddy', 'shopbuddy'
+      echo 'icon-shopbuddy-24px-1.svg' | inline_asset_content
+    when 'deals'
+      echo 'icon-deals-24px-1.svg' | inline_asset_content
+    when 'nutri-physical'
+      echo 'np-icon-1.svg' | inline_asset_content
+    when 'orders'
+      echo 'icon-orders-24px-1.svg' | inline_asset_content
+  endcase
+-%}

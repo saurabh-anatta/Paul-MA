@@ -20,20 +20,42 @@
     endif
   %}
 
-  <announcement-bar-component
-    class="announcement-bar__slider"
-    {% if autoplay == true %}
-      autoplay="{{ section.settings.speed }}" aria-live="polite"
-    {% endif %}
-  >
-    {% if show_arrows %}
-      {% render 'slideshow-arrows', icon_style: 'chevron' %}
-    {% endif %}
-
-    <div class="announcement-bar__slides">
-      {% content_for 'blocks' %}
+  {%- if section.settings.layout == 'split' -%}
+    <div class="announcement-bar__split">
+      <div class="announcement-bar__split-left">
+        <div class="announcement-bar__slides announcement-bar__slides--inline">
+          {% content_for 'blocks' %}
+        </div>
+      </div>
+      {%- if section.settings.secondary_link_text != blank -%}
+        <div class="announcement-bar__split-right">
+          <a
+            {% if section.settings.secondary_link_url != blank %}
+              href="{{ section.settings.secondary_link_url }}"
+            {% endif %}
+            class="announcement-bar__secondary-link"
+          >
+            {{- section.settings.secondary_link_text -}}
+          </a>
+        </div>
+      {%- endif -%}
     </div>
-  </announcement-bar-component>
+  {%- else -%}
+    <announcement-bar-component
+      class="announcement-bar__slider"
+      {% if autoplay == true %}
+        autoplay="{{ section.settings.speed }}" aria-live="polite"
+      {% endif %}
+    >
+      {% if show_arrows %}
+        {% render 'slideshow-arrows', icon_style: 'chevron' %}
+      {% endif %}
+
+      <div class="announcement-bar__slides">
+        {% content_for 'blocks' %}
+      </div>
+    </announcement-bar-component>
+  {%- endif -%}
 </aside>
 
 {% stylesheet %}
@@ -119,6 +141,41 @@
     position: absolute;
     inset: 0;
   }
+
+  /* Split layout */
+  .announcement-bar__split {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 16px;
+  }
+
+  .announcement-bar__split-left {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .announcement-bar__slides--inline {
+    display: flex;
+    align-items: center;
+  }
+
+  .announcement-bar__split-right {
+    flex-shrink: 0;
+  }
+
+  .announcement-bar__secondary-link {
+    font-family: var(--font-body--family);
+    font-size: 0.75rem;
+    color: var(--color-foreground);
+    text-decoration: underline;
+    white-space: nowrap;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}
@@ -133,6 +190,32 @@
     "groups": ["header"]
   },
   "settings": [
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "split",
+          "label": "Split"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "text",
+      "id": "secondary_link_text",
+      "label": "Secondary link text"
+    },
+    {
+      "type": "url",
+      "id": "secondary_link_url",
+      "label": "Secondary link URL"
+    },
     {
       "type": "range",
       "id": "speed",

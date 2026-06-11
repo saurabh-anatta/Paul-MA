@@ -1,0 +1,137 @@
+<div {{ block.shopify_attributes }} class="header-promo">
+  <div class="header-promo__content">
+    {%- if block.settings.promo_text != blank -%}
+      <span class="header-promo__text">{{ block.settings.promo_text }}</span>
+    {%- endif -%}
+    {%- if block.settings.promo_link_text != blank -%}
+      <a
+        {% if block.settings.promo_link_url != blank %}
+          href="{{ block.settings.promo_link_url }}"
+        {% endif %}
+        class="header-promo__link"
+      >
+        {{- block.settings.promo_link_text -}}
+      </a>
+    {%- endif -%}
+  </div>
+  {%- if block.settings.badge_text != blank -%}
+    <div class="header-promo__badge">
+      {%- if block.settings.badge_image != blank -%}
+        {{ block.settings.badge_image | image_url: width: 100 | image_tag: class: 'header-promo__badge-logo', alt: block.settings.badge_text, loading: 'lazy', width: 24, height: 24 }}
+      {%- endif -%}
+      <span class="header-promo__badge-text">{{ block.settings.badge_text }}</span>
+    </div>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  .header-promo {
+    display: none;
+
+    @media screen and (min-width: 750px) {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .header-promo {
+      display: none;
+    }
+  }
+
+  .header-promo__content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .header-promo__text {
+    font-family: var(--font-subheading--family);
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--color-foreground);
+    white-space: nowrap;
+  }
+
+  .header-promo__link {
+    font-family: var(--font-body--family);
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--color-foreground);
+    text-decoration: underline;
+    white-space: nowrap;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  .header-promo__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 16px;
+    border-radius: 40px;
+    background: linear-gradient(90deg, #C9D855, #69BA86, #408DA1);
+    white-space: nowrap;
+    margin-inline-start: auto;
+    flex-shrink: 0;
+  }
+
+  .header-promo__badge-text {
+    font-family: var(--font-body--family);
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 1;
+    color: #FFFFFF;
+  }
+
+  .header-promo__badge-logo {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Header promo",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "promo_text",
+      "label": "Promo text",
+      "default": "$6,073,506,282 awarded in cash!"
+    },
+    {
+      "type": "text",
+      "id": "promo_link_text",
+      "label": "Link text",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "promo_link_url",
+      "label": "Link URL"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge text",
+      "default": "Get Paid Daily."
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_image",
+      "label": "Badge logo"
+    }
+  ]
+}
+{% endschema %}
