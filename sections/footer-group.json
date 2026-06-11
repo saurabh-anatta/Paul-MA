@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "type": "footer",
   "name": "t:names.footer",
@@ -28,7 +37,8 @@
           },
           "blocks": {
             "localization": {
-              "type": "footer-localization"
+              "type": "footer-localization",
+              "settings": {}
             },
             "signup_heading": {
               "type": "text",
@@ -49,13 +59,13 @@
               "settings": {
                 "width": "fill",
                 "inherit_color_scheme": true,
-                "integrated_button": true,
                 "border_style": "all",
                 "border_width": 1,
                 "border_radius": 40,
-                "display_type": "text",
                 "style_class": "button",
+                "display_type": "text",
                 "label": "Subscribe",
+                "integrated_button": true,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -88,9 +98,9 @@
               "settings": {
                 "facebook_url": "https://www.facebook.com/SHOPCOM",
                 "instagram_url": "https://www.instagram.com/shopcom",
+                "youtube_url": "https://www.youtube.com/shopcom",
                 "tiktok_url": "https://www.tiktok.com/@shopcom",
-                "twitter_url": "https://www.twitter.com/shopcom",
-                "youtube_url": "https://www.youtube.com/shopcom"
+                "twitter_url": "https://www.twitter.com/shopcom"
               }
             }
           },
@@ -175,7 +185,8 @@
           }
         },
         "brand_bar": {
-          "type": "_footer-brand-bar"
+          "type": "_footer-brand-bar",
+          "settings": {}
         }
       },
       "block_order": [
@@ -196,14 +207,6 @@
     },
     "utilities": {
       "type": "footer-utilities",
-      "settings": {
-        "section_width": "page-width",
-        "gap": 24,
-        "divider_thickness": 1,
-        "color_scheme": "scheme-4",
-        "padding-block-start": 12,
-        "padding-block-end": 16
-      },
       "blocks": {
         "copyright": {
           "type": "footer-copyright",
@@ -225,9 +228,9 @@
           "settings": {
             "facebook_url": "https://www.facebook.com",
             "instagram_url": "https://www.instagram.com",
+            "youtube_url": "https://www.youtube.com",
             "tiktok_url": "https://www.tiktok.com",
-            "twitter_url": "https://www.twitter.com",
-            "youtube_url": "https://www.youtube.com"
+            "twitter_url": "https://www.twitter.com"
           }
         }
       },
@@ -235,7 +238,15 @@
         "copyright",
         "policy_list",
         "social_icons"
-      ]
+      ],
+      "settings": {
+        "section_width": "page-width",
+        "gap": 24,
+        "divider_thickness": 1,
+        "color_scheme": "scheme-4",
+        "padding-block-start": 12,
+        "padding-block-end": 16
+      }
     }
   },
   "order": [
