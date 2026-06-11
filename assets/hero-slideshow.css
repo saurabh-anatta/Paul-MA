@@ -1,0 +1,198 @@
+/* Hero Slideshow — Figma-exact overrides scoped to .slideshow-section
+   Desktop: 1536×768 (2:1), left-dark gradient, left-aligned DM Sans content
+   Mobile: 390×585 (~150vw), bottom-dark gradient, centered content
+   ======================================================================== */
+
+/* Slide Height
+   Mobile: ~150vw (390×585 ratio)
+   Desktop: 2:1 aspect ratio (1536×768)
+   ======================================================================== */
+.slideshow-section slideshow-slides,
+.slideshow-section slideshow-slide {
+  min-height: 150vw;
+}
+
+@media screen and (min-width: 750px) {
+  .slideshow-section slideshow-slides,
+  .slideshow-section slideshow-slide {
+    min-height: 0;
+    aspect-ratio: 2 / 1;
+  }
+}
+
+/* Overlay Gradient
+   Mobile: 175deg bottom-dark (transparent top → 0.7 black bottom)
+   Desktop: 270deg left-dark (transparent right → 0.6 black left)
+   ======================================================================== */
+.slideshow-section .overlay--gradient {
+  background: linear-gradient(
+    175deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.44) 55%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+}
+
+@media screen and (min-width: 750px) {
+  .slideshow-section .overlay--gradient {
+    background: linear-gradient(
+      270deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.6) 100%
+    );
+  }
+}
+
+/* Content Layout
+   Mobile: centered, bottom-positioned, 350px max-width
+   Desktop: left-aligned, vertically centered, 573px max-width
+   ======================================================================== */
+.slideshow-section .slide__content .group-block-content {
+  font-family: 'DM Sans', sans-serif;
+  max-width: 350px;
+}
+
+@media screen and (min-width: 750px) {
+  .slideshow-section .slide__content .group-block-content {
+    max-width: 573px;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .slideshow-section .slide__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .slideshow-section .slide__content > .group-block-content {
+    margin: 0;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .slideshow-section .slide__content .text-block {
+    align-items: center;
+  }
+
+  .slideshow-section .slide__content .text-block > * {
+    text-align: center;
+  }
+}
+
+/* Heading — DM Sans Medium 500
+   Mobile: 36px/40px, centered
+   Desktop: 64px/64px, left-aligned
+   ======================================================================== */
+.slideshow-section .slide__content .text-block.h2,
+.slideshow-section .slide__content .text-block.h2 > * {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 40px;
+  letter-spacing: 0;
+  color: #fff;
+}
+
+@media screen and (min-width: 750px) {
+  .slideshow-section .slide__content .text-block.h2,
+  .slideshow-section .slide__content .text-block.h2 > * {
+    font-size: 64px;
+    line-height: 64px;
+  }
+}
+
+/* Subtext — DM Sans Regular 400
+   Mobile: 14px/20px, centered
+   Desktop: 18px/24px, left-aligned
+   ======================================================================== */
+.slideshow-section .slide__content .text-block.paragraph,
+.slideshow-section .slide__content .text-block.paragraph > * {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #fff;
+}
+
+@media screen and (min-width: 750px) {
+  .slideshow-section .slide__content .text-block.paragraph,
+  .slideshow-section .slide__content .text-block.paragraph > * {
+    font-size: 18px;
+    line-height: 24px;
+  }
+}
+
+/* CTA Button — #098AA7 teal pill
+   Mobile: 14px/20px DM Sans 500, padding 4px 48px, 40px height
+   Desktop: 16px/20px DM Sans 400, padding 4px 64px, 48px height
+   ======================================================================== */
+.slideshow-section .slide__content .button {
+  background-color: #098AA7;
+  color: #fff;
+  border: none;
+  border-radius: 32px;
+  padding: 4px 48px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: none;
+  text-decoration: none;
+}
+
+@media screen and (min-width: 750px) {
+  .slideshow-section .slide__content .button {
+    padding: 4px 64px;
+    font-weight: 400;
+    font-size: 16px;
+    min-height: 48px;
+  }
+}
+
+.slideshow-section .slide__content .button:hover {
+  background-color: #077a94;
+  color: #fff;
+}
+
+/* Arrow Controls — 40px white circles, #141414 border and chevron
+   Hidden on mobile (Figma mobile shows no arrows)
+   ======================================================================== */
+.slideshow-section slideshow-arrows .slideshow-control.slideshow-control--shape-circle {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  background-color: #fff;
+  color: #141414;
+  border: 1px solid #141414;
+}
+
+.slideshow-section slideshow-arrows .slideshow-control.slideshow-control--shape-circle:hover {
+  background-color: #f5f5f5;
+}
+
+@media screen and (max-width: 749px) {
+  .slideshow-section slideshow-arrows {
+    display: none;
+  }
+}
+
+/* Pagination Dots — white, 6px inactive / 10px active, 12px gap
+   ======================================================================== */
+.slideshow-section .slideshow-controls__dots {
+  gap: 12px;
+}
+
+.slideshow-section .slideshow-controls__dots button {
+  --size: 6px;
+}
+
+.slideshow-section .slideshow-controls__dots button[aria-selected='true'] {
+  --size: 10px;
+}
