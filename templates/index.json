@@ -7,7 +7,7 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
+{
   "sections": {
     "hero_slideshow": {
       "type": "slideshow",
@@ -58,7 +58,11 @@
               }
             }
           },
-          "block_order": ["heading_1", "subtext_1", "button_1"]
+          "block_order": [
+            "heading_1",
+            "subtext_1",
+            "button_1"
+          ]
         },
         "slide_2": {
           "type": "_slide",
@@ -106,10 +110,17 @@
               }
             }
           },
-          "block_order": ["heading_2", "subtext_2", "button_2"]
+          "block_order": [
+            "heading_2",
+            "subtext_2",
+            "button_2"
+          ]
         }
       },
-      "block_order": ["slide_1", "slide_2"],
+      "block_order": [
+        "slide_1",
+        "slide_2"
+      ],
       "settings": {
         "display_mode": "full_frame",
         "section_width": "full-width",
@@ -163,6 +174,9 @@
               "type": "text",
               "settings": {
                 "text": "<h2>Shop by Category</h2>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
                 "type_preset": "rte",
                 "font": "var(--font-body--family)",
                 "font_size": "",
@@ -170,9 +184,6 @@
                 "letter_spacing": "normal",
                 "case": "none",
                 "wrap": "pretty",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -183,6 +194,9 @@
               "type": "text",
               "settings": {
                 "text": "<p><a href=\"/collections/all\">Shop All</a></p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
                 "type_preset": "custom",
                 "font": "var(--font-subheading--family)",
                 "font_size": "1.125rem",
@@ -191,9 +205,6 @@
                 "case": "none",
                 "wrap": "pretty",
                 "color": "var(--color-primary)",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -201,7 +212,10 @@
               }
             }
           },
-          "block_order": ["heading_text", "shop_all_link"]
+          "block_order": [
+            "heading_text",
+            "shop_all_link"
+          ]
         },
         "static-collection-card": {
           "type": "_collection-card",
@@ -236,6 +250,9 @@
               "type": "collection-title",
               "name": "t:names.collection_title",
               "settings": {
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
                 "type_preset": "rte",
                 "font": "var(--font-body--family)",
                 "font_size": "",
@@ -243,9 +260,6 @@
                 "letter_spacing": "normal",
                 "case": "none",
                 "wrap": "pretty",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -256,10 +270,14 @@
               }
             }
           },
-          "block_order": ["collection-title"]
+          "block_order": [
+            "collection-title"
+          ]
         }
       },
-      "block_order": ["header_group"],
+      "block_order": [
+        "header_group"
+      ],
       "settings": {
         "collection_list": [],
         "layout_type": "grid",
@@ -473,18 +491,10 @@
     },
     "brand_carousel": {
       "type": "brand-carousel",
-      "settings": {
-        "heading": "Shop by Brand",
-        "view_all_text": "View All",
-        "columns": 6,
-        "columns_gap": 16,
-        "color_scheme": "scheme-1",
-        "padding-block-start": 48,
-        "padding-block-end": 48
-      },
       "blocks": {
         "brand_card_1": {
           "type": "_brand-card",
+          "settings": {},
           "blocks": {
             "image_1": {
               "type": "_brand-image",
@@ -506,10 +516,15 @@
               }
             }
           },
-          "block_order": ["image_1", "title_1", "desc_1"]
+          "block_order": [
+            "image_1",
+            "title_1",
+            "desc_1"
+          ]
         },
         "brand_card_2": {
           "type": "_brand-card",
+          "settings": {},
           "blocks": {
             "image_2": {
               "type": "_brand-image",
@@ -531,10 +546,15 @@
               }
             }
           },
-          "block_order": ["image_2", "title_2", "desc_2"]
+          "block_order": [
+            "image_2",
+            "title_2",
+            "desc_2"
+          ]
         },
         "brand_card_3": {
           "type": "_brand-card",
+          "settings": {},
           "blocks": {
             "image_3": {
               "type": "_brand-image",
@@ -556,10 +576,15 @@
               }
             }
           },
-          "block_order": ["image_3", "title_3", "desc_3"]
+          "block_order": [
+            "image_3",
+            "title_3",
+            "desc_3"
+          ]
         },
         "brand_card_4": {
           "type": "_brand-card",
+          "settings": {},
           "blocks": {
             "image_4": {
               "type": "_brand-image",
@@ -581,10 +606,15 @@
               }
             }
           },
-          "block_order": ["image_4", "title_4", "desc_4"]
+          "block_order": [
+            "image_4",
+            "title_4",
+            "desc_4"
+          ]
         },
         "brand_card_5": {
           "type": "_brand-card",
+          "settings": {},
           "blocks": {
             "image_5": {
               "type": "_brand-image",
@@ -606,10 +636,15 @@
               }
             }
           },
-          "block_order": ["image_5", "title_5", "desc_5"]
+          "block_order": [
+            "image_5",
+            "title_5",
+            "desc_5"
+          ]
         },
         "brand_card_6": {
           "type": "_brand-card",
+          "settings": {},
           "blocks": {
             "image_6": {
               "type": "_brand-image",
@@ -631,10 +666,15 @@
               }
             }
           },
-          "block_order": ["image_6", "title_6", "desc_6"]
+          "block_order": [
+            "image_6",
+            "title_6",
+            "desc_6"
+          ]
         },
         "brand_card_7": {
           "type": "_brand-card",
+          "settings": {},
           "blocks": {
             "image_7": {
               "type": "_brand-image",
@@ -656,10 +696,15 @@
               }
             }
           },
-          "block_order": ["image_7", "title_7", "desc_7"]
+          "block_order": [
+            "image_7",
+            "title_7",
+            "desc_7"
+          ]
         },
         "brand_card_8": {
           "type": "_brand-card",
+          "settings": {},
           "blocks": {
             "image_8": {
               "type": "_brand-image",
@@ -681,7 +726,11 @@
               }
             }
           },
-          "block_order": ["image_8", "title_8", "desc_8"]
+          "block_order": [
+            "image_8",
+            "title_8",
+            "desc_8"
+          ]
         }
       },
       "block_order": [
@@ -693,7 +742,16 @@
         "brand_card_6",
         "brand_card_7",
         "brand_card_8"
-      ]
+      ],
+      "settings": {
+        "heading": "Shop by Brand",
+        "view_all_text": "View All",
+        "columns": 6,
+        "columns_gap": 16,
+        "color_scheme": "scheme-1",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
     }
   },
   "order": [
