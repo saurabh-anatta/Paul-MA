@@ -1,0 +1,98 @@
+{%- if block.settings.image != blank -%}
+  {%- assign opacity_val = block.settings.opacity | times: 1.0 | divided_by: 100.0 -%}
+  <div
+    class="featured-in-logo"
+    style="--logo-height: {{ block.settings.logo_height }}px; --logo-opacity: {{ opacity_val }};"
+    {{ block.shopify_attributes }}
+  >
+    {%- assign sizes_val = '122px' -%}
+    {{
+      block.settings.image
+      | image_url: width: block.settings.image.width
+      | image_tag:
+        sizes: sizes_val,
+        widths: '60,76,120,122,160,240',
+        loading: 'lazy',
+        class: 'featured-in-logo__img',
+        alt: block.settings.image.alt
+    }}
+  </div>
+{%- else -%}
+  <div
+    class="featured-in-logo featured-in-logo--placeholder"
+    style="--logo-height: {{ block.settings.logo_height }}px; --logo-opacity: 1;"
+    {{ block.shopify_attributes }}
+  >
+    {{ 'image' | placeholder_svg_tag: 'featured-in-logo__placeholder-svg' }}
+  </div>
+{%- endif -%}
+
+{% stylesheet %}
+  .featured-in-logo {
+    height: var(--logo-height, 40px);
+    opacity: var(--logo-opacity, 1);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .featured-in-logo__img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+  .featured-in-logo--placeholder {
+    width: 120px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    justify-content: center;
+  }
+
+  .featured-in-logo__placeholder-svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+  }
+
+  @media screen and (max-width: 749px) {
+    .featured-in-logo {
+      height: 20px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Logo",
+  "tag": null,
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Logo image"
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "label": "Logo height",
+      "min": 16,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "opacity",
+      "label": "Opacity",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    }
+  ]
+}
+{% endschema %}

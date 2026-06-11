@@ -1,0 +1,156 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap" rel="stylesheet">
+
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div
+  class="
+    section
+    section--page-width
+    color-{{ section.settings.color_scheme }}
+    featured-in
+    spacing-style
+  "
+  style="{% render 'spacing-style', settings: section.settings %}"
+  data-testid="featured-in-section"
+>
+  <div class="featured-in__content">
+    {% content_for 'blocks' %}
+  </div>
+</div>
+
+{% stylesheet %}
+  .featured-in__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .featured-in__content > .featured-in__logos {
+    margin-top: 16px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .featured-in__content {
+      gap: 24px;
+    }
+
+    .featured-in__content > .featured-in__logos {
+      margin-top: 0;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Featured in",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "blocks": [
+    {
+      "type": "_featured-in-label"
+    },
+    {
+      "type": "_featured-in-quote"
+    },
+    {
+      "type": "_featured-in-logos"
+    },
+    {
+      "type": "@theme"
+    },
+    {
+      "type": "@app"
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured in",
+      "settings": {
+        "color_scheme": "scheme-2"
+      },
+      "blocks": {
+        "label": {
+          "type": "_featured-in-label",
+          "settings": {
+            "label_text": "as featured in"
+          }
+        },
+        "quote": {
+          "type": "_featured-in-quote"
+        },
+        "logos": {
+          "type": "_featured-in-logos",
+          "settings": {
+            "columns-gap": 64
+          },
+          "blocks": {
+            "logo_1": {
+              "type": "_featured-in-logo",
+              "settings": {
+                "logo_height": 32,
+                "opacity": 100
+              }
+            },
+            "logo_2": {
+              "type": "_featured-in-logo",
+              "settings": {
+                "logo_height": 40,
+                "opacity": 30
+              }
+            },
+            "logo_3": {
+              "type": "_featured-in-logo",
+              "settings": {
+                "logo_height": 36,
+                "opacity": 30
+              }
+            }
+          },
+          "block_order": ["logo_1", "logo_2", "logo_3"]
+        }
+      },
+      "block_order": ["label", "quote", "logos"]
+    }
+  ]
+}
+{% endschema %}

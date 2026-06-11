@@ -1,0 +1,38 @@
+<p class="featured-in__label" {{ block.shopify_attributes }}>
+  {{- block.settings.label_text -}}
+</p>
+
+{% stylesheet %}
+  .featured-in__label {
+    font-family: 'Inter', var(--font-body--family), sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--color-foreground);
+    margin: 0;
+    width: 100%;
+  }
+
+  @media screen and (min-width: 750px) {
+    .featured-in__label {
+      font-size: 14px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Label",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "label_text",
+      "label": "Label text",
+      "default": "as featured in"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,39 @@
+<div class="featured-in__quote" {{ block.shopify_attributes }}>
+  {{ block.settings.quote_text }}
+</div>
+
+{% stylesheet %}
+  .featured-in__quote {
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 24px;
+    text-align: center;
+    color: var(--color-foreground);
+    max-width: 350px;
+    margin: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .featured-in__quote {
+      font-size: 32px;
+      line-height: 40px;
+      max-width: 794px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Quote",
+  "tag": null,
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "quote_text",
+      "label": "Quote text",
+      "default": "<p>\u201cBlending e-commerce with entrepreneurship, this platform is shaping the future of independent business.\u201d</p>"
+    }
+  ]
+}
+{% endschema %}

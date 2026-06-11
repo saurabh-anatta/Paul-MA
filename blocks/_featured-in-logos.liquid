@@ -1,0 +1,70 @@
+<div
+  class="featured-in__logos"
+  style="--logos-gap: {{ block.settings['columns-gap'] }}px;"
+  {{ block.shopify_attributes }}
+>
+  {% content_for 'blocks' %}
+</div>
+
+{% stylesheet %}
+  .featured-in__logos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: var(--logos-gap, 64px);
+  }
+
+  @media screen and (max-width: 749px) {
+    .featured-in__logos {
+      gap: 32px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Logos",
+  "tag": null,
+  "blocks": [
+    {
+      "type": "_featured-in-logo"
+    },
+    {
+      "type": "@theme"
+    },
+    {
+      "type": "@app"
+    }
+  ],
+  "settings": [
+    {
+      "type": "range",
+      "id": "columns-gap",
+      "label": "Logo gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 64
+    }
+  ],
+  "presets": [
+    {
+      "name": "Logos",
+      "blocks": {
+        "logo_1": {
+          "type": "_featured-in-logo"
+        },
+        "logo_2": {
+          "type": "_featured-in-logo"
+        },
+        "logo_3": {
+          "type": "_featured-in-logo"
+        }
+      },
+      "block_order": ["logo_1", "logo_2", "logo_3"]
+    }
+  ]
+}
+{% endschema %}
