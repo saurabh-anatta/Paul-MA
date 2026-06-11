@@ -1,0 +1,91 @@
+{%- liquid
+  assign image = block.settings.image
+  assign logo_asset = block.settings.logo_asset
+  assign logo_width = block.settings.logo_width
+-%}
+
+<div class="brand-image" {{ block.shopify_attributes }}>
+  <div class="brand-image__circle" style="--logo-width: {{ logo_width }}%;">
+    {%- if image != blank -%}
+      {%- assign sizes_val = '(min-width: 750px) 221px, 111px' -%}
+      {{
+        image
+        | image_url: width: image.width
+        | image_tag:
+          sizes: sizes_val,
+          widths: '111,150,221,300,442',
+          loading: 'lazy',
+          class: 'brand-image__img',
+          alt: image.alt
+      }}
+    {%- elsif logo_asset != blank -%}
+      <img
+        src="{{ logo_asset | asset_url }}"
+        alt=""
+        loading="lazy"
+        class="brand-image__logo"
+      >
+    {%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .brand-image {
+    width: 100%;
+  }
+
+  .brand-image__circle {
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    border-radius: 50%;
+    border: 1px solid #DFDFDF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #FFFFFF;
+  }
+
+  .brand-image__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .brand-image__logo {
+    max-width: var(--logo-width, 70%);
+    max-height: var(--logo-width, 70%);
+    width: auto;
+    height: auto;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Brand image",
+  "tag": null,
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "logo_asset",
+      "label": "Logo asset filename",
+      "info": "Filename of an SVG in theme assets/ (e.g. prime-logo.svg). Used when no image is uploaded."
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "Logo width",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 70
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,29 @@
+<p class="brand-description" {{ block.shopify_attributes }}>
+  {{- block.settings.description -}}
+</p>
+
+{% stylesheet %}
+  .brand-description {
+    font-family: var(--font-body--family);
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 400;
+    text-align: center;
+    color: #7E7E7E;
+    margin: 0;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Brand description",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description"
+    }
+  ]
+}
+{% endschema %}

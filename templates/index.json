@@ -470,11 +470,236 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
+    },
+    "brand_carousel": {
+      "type": "brand-carousel",
+      "settings": {
+        "heading": "Shop by Brand",
+        "view_all_text": "View All",
+        "columns": 6,
+        "columns_gap": 16,
+        "color_scheme": "scheme-1",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      },
+      "blocks": {
+        "brand_card_1": {
+          "type": "_brand-card",
+          "blocks": {
+            "image_1": {
+              "type": "_brand-image",
+              "settings": {
+                "logo_asset": "isotonix-logo-black-1.svg",
+                "logo_width": 70
+              }
+            },
+            "title_1": {
+              "type": "_brand-title",
+              "settings": {
+                "title": "Isotonix"
+              }
+            },
+            "desc_1": {
+              "type": "_brand-description",
+              "settings": {
+                "description": "Vitamins with maximum absorption"
+              }
+            }
+          },
+          "block_order": ["image_1", "title_1", "desc_1"]
+        },
+        "brand_card_2": {
+          "type": "_brand-card",
+          "blocks": {
+            "image_2": {
+              "type": "_brand-image",
+              "settings": {
+                "logo_asset": "prime-logo.svg",
+                "logo_width": 70
+              }
+            },
+            "title_2": {
+              "type": "_brand-title",
+              "settings": {
+                "title": "Prime"
+              }
+            },
+            "desc_2": {
+              "type": "_brand-description",
+              "settings": {
+                "description": "Anti-Aging Nutraceuticsl"
+              }
+            }
+          },
+          "block_order": ["image_2", "title_2", "desc_2"]
+        },
+        "brand_card_3": {
+          "type": "_brand-card",
+          "blocks": {
+            "image_3": {
+              "type": "_brand-image",
+              "settings": {
+                "logo_asset": "ldv-usca-au-gb-es-hk-tw-sg-logo-1.svg",
+                "logo_width": 70
+              }
+            },
+            "title_3": {
+              "type": "_brand-title",
+              "settings": {
+                "title": "Lumiere de Vie"
+              }
+            },
+            "desc_3": {
+              "type": "_brand-description",
+              "settings": {
+                "description": "Skin care products for men and women."
+              }
+            }
+          },
+          "block_order": ["image_3", "title_3", "desc_3"]
+        },
+        "brand_card_4": {
+          "type": "_brand-card",
+          "blocks": {
+            "image_4": {
+              "type": "_brand-image",
+              "settings": {
+                "image": "shopify://shop_images/image-66-home-page-3095363.png",
+                "logo_width": 70
+              }
+            },
+            "title_4": {
+              "type": "_brand-title",
+              "settings": {
+                "title": "GoTrim"
+              }
+            },
+            "desc_4": {
+              "type": "_brand-description",
+              "settings": {
+                "description": "Sustainable weight loss & vibrant lifestyle"
+              }
+            }
+          },
+          "block_order": ["image_4", "title_4", "desc_4"]
+        },
+        "brand_card_5": {
+          "type": "_brand-card",
+          "blocks": {
+            "image_5": {
+              "type": "_brand-image",
+              "settings": {
+                "logo_asset": "layered-logo-1.svg",
+                "logo_width": 70
+              }
+            },
+            "title_5": {
+              "type": "_brand-title",
+              "settings": {
+                "title": "Layered"
+              }
+            },
+            "desc_5": {
+              "type": "_brand-description",
+              "settings": {
+                "description": "Anti-Aging Nutraceuticsl"
+              }
+            }
+          },
+          "block_order": ["image_5", "title_5", "desc_5"]
+        },
+        "brand_card_6": {
+          "type": "_brand-card",
+          "blocks": {
+            "image_6": {
+              "type": "_brand-image",
+              "settings": {
+                "image": "shopify://shop_images/image-67-home-page-3095382.png",
+                "logo_width": 70
+              }
+            },
+            "title_6": {
+              "type": "_brand-title",
+              "settings": {
+                "title": "Vita Shield"
+              }
+            },
+            "desc_6": {
+              "type": "_brand-description",
+              "settings": {
+                "description": "Therapy treatments to promote younger-looking skin"
+              }
+            }
+          },
+          "block_order": ["image_6", "title_6", "desc_6"]
+        },
+        "brand_card_7": {
+          "type": "_brand-card",
+          "blocks": {
+            "image_7": {
+              "type": "_brand-image",
+              "settings": {
+                "logo_asset": "isotonix-logo-black-1.svg",
+                "logo_width": 70
+              }
+            },
+            "title_7": {
+              "type": "_brand-title",
+              "settings": {
+                "title": "Isotonix"
+              }
+            },
+            "desc_7": {
+              "type": "_brand-description",
+              "settings": {
+                "description": "Vitamins with maximum absorption"
+              }
+            }
+          },
+          "block_order": ["image_7", "title_7", "desc_7"]
+        },
+        "brand_card_8": {
+          "type": "_brand-card",
+          "blocks": {
+            "image_8": {
+              "type": "_brand-image",
+              "settings": {
+                "logo_asset": "prime-logo.svg",
+                "logo_width": 70
+              }
+            },
+            "title_8": {
+              "type": "_brand-title",
+              "settings": {
+                "title": "Prime"
+              }
+            },
+            "desc_8": {
+              "type": "_brand-description",
+              "settings": {
+                "description": "Anti-Aging Nutraceuticsl"
+              }
+            }
+          },
+          "block_order": ["image_8", "title_8", "desc_8"]
+        }
+      },
+      "block_order": [
+        "brand_card_1",
+        "brand_card_2",
+        "brand_card_3",
+        "brand_card_4",
+        "brand_card_5",
+        "brand_card_6",
+        "brand_card_7",
+        "brand_card_8"
+      ]
     }
   },
   "order": [
     "hero_slideshow",
     "shop_by_category",
-    "product_list_fa6P9H"
+    "product_list_fa6P9H",
+    "brand_carousel"
   ]
 }

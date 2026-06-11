@@ -1,0 +1,586 @@
+{%- liquid
+  assign heading = section.settings.heading
+  assign view_all_text = section.settings.view_all_text
+  assign view_all_url = section.settings.view_all_url
+  assign columns = section.settings.columns
+  assign columns_gap = section.settings.columns_gap
+  assign block_count = section.blocks.size
+-%}
+
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div
+  class="
+    section
+    section--page-width
+    color-{{ section.settings.color_scheme }}
+    brand-carousel
+    spacing-style
+  "
+  style="
+    --carousel-columns: {{ columns }};
+    --carousel-gap: {{ columns_gap }}px;
+    {% render 'spacing-style', settings: section.settings %}
+  "
+  data-testid="brand-carousel-section"
+>
+  <div class="brand-carousel__header">
+    {%- if heading != blank -%}
+      <h2 class="brand-carousel__heading">{{ heading }}</h2>
+    {%- endif -%}
+
+    <div class="brand-carousel__nav">
+      <div class="brand-carousel__arrows">
+        <button
+          type="button"
+          class="brand-carousel__arrow brand-carousel__arrow--prev button-unstyled"
+          aria-label="Previous"
+          data-action="prev"
+        >
+          <svg width="9" height="16" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M8 1L1.5 8L8 15" stroke="#141414" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <button
+          type="button"
+          class="brand-carousel__arrow brand-carousel__arrow--next button-unstyled"
+          aria-label="Next"
+          data-action="next"
+        >
+          <svg width="9" height="16" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M1 1L7.5 8L1 15" stroke="#141414" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+
+      {%- if view_all_text != blank -%}
+        <a
+          class="brand-carousel__view-all"
+          {% if view_all_url != blank %}href="{{ view_all_url }}"{% endif %}
+        >
+          {{- view_all_text -}}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="brand-carousel__track-wrapper">
+    <div class="brand-carousel__track" data-track>
+      {% content_for 'blocks' %}
+    </div>
+  </div>
+
+  <div class="brand-carousel__dots" aria-label="Carousel pagination">
+    {%- comment -%} Dots rendered via JS based on page count {%- endcomment -%}
+  </div>
+</div>
+
+<script type="module">
+  const section = document.querySelector('[data-testid="brand-carousel-section"]');
+  if (section) {
+    const track = section.querySelector('[data-track]');
+    const prevBtn = section.querySelector('[data-action="prev"]');
+    const nextBtn = section.querySelector('[data-action="next"]');
+    const dotsContainer = section.querySelector('.brand-carousel__dots');
+
+    if (track && prevBtn && nextBtn && dotsContainer) {
+      const isMobile = () => window.matchMedia('(max-width: 749px)').matches;
+
+      const getPageCount = () => {
+        if (!isMobile()) {
+          const gap = parseFloat(getComputedStyle(track).columnGap) || 16;
+          const cols = parseInt(getComputedStyle(section).getPropertyValue('--carousel-columns')) || 6;
+          const cardWidth = (track.offsetWidth - gap * (cols - 1)) / cols;
+          const totalCards = track.children.length;
+          return Math.max(1, Math.ceil(totalCards / cols));
+        }
+        const cardsPerPage = 6;
+        return Math.max(1, Math.ceil(track.children.length / cardsPerPage));
+      };
+
+      const renderDots = () => {
+        const pageCount = getPageCount();
+        dotsContainer.innerHTML = '';
+        for (let i = 0; i < pageCount; i++) {
+          const dot = document.createElement('button');
+          dot.className = 'brand-carousel__dot' + (i === 0 ? ' brand-carousel__dot--active' : '');
+          dot.type = 'button';
+          dot.setAttribute('aria-label', 'Page ' + (i + 1));
+          dot.addEventListener('click', () => scrollToPage(i));
+          dotsContainer.appendChild(dot);
+        }
+      };
+
+      const updateActiveDot = () => {
+        const scrollLeft = track.scrollLeft;
+        const maxScroll = track.scrollWidth - track.offsetWidth;
+        const dots = dotsContainer.querySelectorAll('.brand-carousel__dot');
+        if (dots.length === 0) return;
+        const pageIndex = maxScroll > 0
+          ? Math.round((scrollLeft / maxScroll) * (dots.length - 1))
+          : 0;
+        for (const dot of dots) {
+          dot.classList.remove('brand-carousel__dot--active');
+        }
+        if (dots[pageIndex]) {
+          dots[pageIndex].classList.add('brand-carousel__dot--active');
+        }
+      };
+
+      const scrollToPage = (pageIndex) => {
+        const dots = dotsContainer.querySelectorAll('.brand-carousel__dot');
+        const maxScroll = track.scrollWidth - track.offsetWidth;
+        const targetScroll = dots.length > 1
+          ? (pageIndex / (dots.length - 1)) * maxScroll
+          : 0;
+        track.scrollTo({ left: targetScroll, behavior: 'smooth' });
+      };
+
+      prevBtn.addEventListener('click', () => {
+        const gap = parseFloat(getComputedStyle(track).columnGap) || 16;
+        const scrollAmount = track.offsetWidth + gap;
+        track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      });
+
+      nextBtn.addEventListener('click', () => {
+        const gap = parseFloat(getComputedStyle(track).columnGap) || 16;
+        const scrollAmount = track.offsetWidth + gap;
+        track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      });
+
+      let scrollTimeout;
+      track.addEventListener('scroll', () => {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(updateActiveDot, 100);
+      });
+
+      renderDots();
+      window.addEventListener('resize', () => {
+        renderDots();
+        updateActiveDot();
+      });
+    }
+  }
+</script>
+
+{% stylesheet %}
+  .brand-carousel {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .brand-carousel__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    margin-block-end: 32px;
+  }
+
+  .brand-carousel__heading {
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 40px;
+    color: #141414;
+    margin: 0;
+    flex: 1;
+  }
+
+  .brand-carousel__nav {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    flex-shrink: 0;
+  }
+
+  .brand-carousel__arrows {
+    display: flex;
+    align-items: center;
+    gap: 29px;
+  }
+
+  .brand-carousel__arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    background: none;
+    border: none;
+  }
+
+  .brand-carousel__arrow svg {
+    width: 9px;
+    height: 16px;
+  }
+
+  .brand-carousel__view-all {
+    font-family: var(--font-subheading--family);
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 38px;
+    text-decoration: underline;
+    color: #098AA7;
+    white-space: nowrap;
+  }
+
+  .brand-carousel__view-all:hover {
+    opacity: 0.8;
+  }
+
+  .brand-carousel__track-wrapper {
+    overflow: hidden;
+  }
+
+  .brand-carousel__track {
+    display: flex;
+    gap: var(--carousel-gap, 16px);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .brand-carousel__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .brand-carousel__dots {
+    display: none;
+  }
+
+  /* Mobile styles */
+  @media screen and (max-width: 749px) {
+    .brand-carousel {
+      padding-inline: 16px;
+    }
+
+    .brand-carousel__header {
+      gap: 18px;
+      margin-block-end: 20px;
+    }
+
+    .brand-carousel__heading {
+      font-size: 24px;
+      line-height: 32px;
+    }
+
+    .brand-carousel__arrows {
+      display: none;
+    }
+
+    .brand-carousel__nav {
+      gap: 18px;
+    }
+
+    .brand-carousel__view-all {
+      font-size: 16px;
+      line-height: 38px;
+    }
+
+    .brand-carousel__track {
+      display: grid;
+      grid-template-rows: repeat(2, auto);
+      grid-auto-flow: column;
+      grid-auto-columns: calc((100% - 12px * 2) / 3);
+      gap: 12px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+    }
+
+    .brand-carousel__track > .brand-card {
+      scroll-snap-align: none;
+      width: auto;
+    }
+
+    /* Snap on every 3rd column (each page = 3 columns) */
+    .brand-carousel__track > .brand-card:nth-child(6n + 1) {
+      scroll-snap-align: start;
+    }
+
+    .brand-carousel__dots {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      padding-block-start: 32px;
+    }
+
+    .brand-carousel__dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 15px;
+      background: rgba(0, 0, 0, 0.3);
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .brand-carousel__dot--active {
+      width: 10px;
+      height: 10px;
+      background: #141414;
+    }
+
+    /* Hide title and description on mobile */
+    .brand-card .brand-title,
+    .brand-card .brand-description {
+      display: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Shop by brand",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "blocks": [
+    {
+      "type": "_brand-card"
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop by Brand"
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "label": "View all text",
+      "default": "View All"
+    },
+    {
+      "type": "url",
+      "id": "view_all_url",
+      "label": "View all link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "Columns",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "columns_gap",
+      "label": "Column gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop by brand",
+      "category": "Collection",
+      "settings": {
+        "heading": "Shop by Brand",
+        "view_all_text": "View All",
+        "columns": 6,
+        "columns_gap": 16
+      },
+      "blocks": {
+        "card_1": {
+          "type": "_brand-card",
+          "blocks": {
+            "image_1": {
+              "type": "_brand-image",
+              "settings": {
+                "logo_asset": "isotonix-logo-black-1.svg",
+                "logo_width": 70
+              }
+            },
+            "title_1": {
+              "type": "_brand-title",
+              "settings": {
+                "title": "Isotonix"
+              }
+            },
+            "desc_1": {
+              "type": "_brand-description",
+              "settings": {
+                "description": "Vitamins with maximum absorption"
+              }
+            }
+          },
+          "block_order": ["image_1", "title_1", "desc_1"]
+        },
+        "card_2": {
+          "type": "_brand-card",
+          "blocks": {
+            "image_2": {
+              "type": "_brand-image",
+              "settings": {
+                "logo_asset": "prime-logo.svg",
+                "logo_width": 70
+              }
+            },
+            "title_2": {
+              "type": "_brand-title",
+              "settings": {
+                "title": "Prime"
+              }
+            },
+            "desc_2": {
+              "type": "_brand-description",
+              "settings": {
+                "description": "Anti-Aging Nutraceuticsl"
+              }
+            }
+          },
+          "block_order": ["image_2", "title_2", "desc_2"]
+        },
+        "card_3": {
+          "type": "_brand-card",
+          "blocks": {
+            "image_3": {
+              "type": "_brand-image",
+              "settings": {
+                "logo_asset": "ldv-usca-au-gb-es-hk-tw-sg-logo-1.svg",
+                "logo_width": 70
+              }
+            },
+            "title_3": {
+              "type": "_brand-title",
+              "settings": {
+                "title": "Lumiere de Vie"
+              }
+            },
+            "desc_3": {
+              "type": "_brand-description",
+              "settings": {
+                "description": "Skin care products for men and women."
+              }
+            }
+          },
+          "block_order": ["image_3", "title_3", "desc_3"]
+        },
+        "card_4": {
+          "type": "_brand-card",
+          "blocks": {
+            "image_4": {
+              "type": "_brand-image",
+              "settings": {
+                "logo_width": 70
+              }
+            },
+            "title_4": {
+              "type": "_brand-title",
+              "settings": {
+                "title": "GoTrim"
+              }
+            },
+            "desc_4": {
+              "type": "_brand-description",
+              "settings": {
+                "description": "Sustainable weight loss & vibrant lifestyle"
+              }
+            }
+          },
+          "block_order": ["image_4", "title_4", "desc_4"]
+        },
+        "card_5": {
+          "type": "_brand-card",
+          "blocks": {
+            "image_5": {
+              "type": "_brand-image",
+              "settings": {
+                "logo_asset": "layered-logo-1.svg",
+                "logo_width": 70
+              }
+            },
+            "title_5": {
+              "type": "_brand-title",
+              "settings": {
+                "title": "Layered"
+              }
+            },
+            "desc_5": {
+              "type": "_brand-description",
+              "settings": {
+                "description": "Anti-Aging Nutraceuticsl"
+              }
+            }
+          },
+          "block_order": ["image_5", "title_5", "desc_5"]
+        },
+        "card_6": {
+          "type": "_brand-card",
+          "blocks": {
+            "image_6": {
+              "type": "_brand-image",
+              "settings": {
+                "logo_width": 70
+              }
+            },
+            "title_6": {
+              "type": "_brand-title",
+              "settings": {
+                "title": "Vita Shield"
+              }
+            },
+            "desc_6": {
+              "type": "_brand-description",
+              "settings": {
+                "description": "Therapy treatments to promote younger-looking skin"
+              }
+            }
+          },
+          "block_order": ["image_6", "title_6", "desc_6"]
+        }
+      },
+      "block_order": ["card_1", "card_2", "card_3", "card_4", "card_5", "card_6"]
+    }
+  ]
+}
+{% endschema %}
