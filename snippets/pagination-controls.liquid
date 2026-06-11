@@ -163,20 +163,21 @@
 
 {% stylesheet %}
   .pagination {
-    --pagination-size: 36px;
-    --pagination-inset: 2px;
-    --pagination-radius: 6;
+    --pagination-size: 40px;
+    --pagination-inset: 0px;
+    --pagination-radius: 32;
 
     display: flex;
     justify-content: center;
     padding: var(--padding-xl) var(--padding-sm);
+    padding-bottom: 32px;
     margin-top: var(--padding-xl);
     position: relative;
   }
 
   .pagination__list {
     display: flex;
-    gap: 0;
+    gap: 8px;
     align-items: center;
     list-style: none;
     margin: 0;
@@ -202,9 +203,10 @@
     position: relative;
     outline-color: var(--color-foreground);
     -webkit-tap-highlight-color: transparent;
-    font-size: var(--font-size--md);
-    font-weight: var(--font-weight-normal);
-    border-radius: calc(var(--pagination-radius) * 1px);
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24px;
+    border-radius: 32px;
     transition: color var(--hover-transition-duration) var(--hover-transition-timing),
       opacity var(--hover-transition-duration) var(--hover-transition-timing);
   }
@@ -216,7 +218,7 @@
 
   .pagination__link--current {
     color: var(--color-background);
-    font-weight: var(--font-weight-medium);
+    font-weight: 400;
     cursor: default;
   }
 
@@ -229,6 +231,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    border: 1px solid var(--color-foreground);
+    border-radius: 32px;
   }
 
   .pagination__link--disabled {
@@ -252,8 +256,8 @@
     .pagination__link:not(.pagination__link--gap)::before {
       content: '';
       position: absolute;
-      inset: var(--pagination-inset);
-      border-radius: calc(var(--pagination-radius) * 1px);
+      inset: 0;
+      border-radius: 32px;
       background: rgb(var(--color-foreground-rgb) / var(--opacity-10));
       z-index: -1;
       opacity: 0;
@@ -277,11 +281,11 @@
       content: '';
       z-index: -1;
       position: absolute;
-      width: calc(var(--pagination-size) - (2 * var(--pagination-inset)));
+      width: var(--pagination-size);
       aspect-ratio: 1;
       pointer-events: none;
       opacity: 0;
-      border-radius: calc(var(--pagination-radius) * 1px);
+      border-radius: 32px;
       background: rgb(var(--color-foreground-rgb) / var(--opacity-10));
       transition: left var(--hover-transition-duration) var(--hover-transition-timing),
         top var(--hover-transition-duration) var(--hover-transition-timing);
@@ -303,8 +307,8 @@
     .pagination__link[aria-current='page']::before {
       content: '';
       position: absolute;
-      inset: var(--pagination-inset);
-      border-radius: calc(var(--pagination-radius) * 1px);
+      inset: 0;
+      border-radius: 32px;
       background: var(--color-foreground);
       z-index: -1;
     }
@@ -318,8 +322,8 @@
     /* Position hover indicator using anchor */
     .pagination__list::before {
       position-anchor: --pagination-hover;
-      left: calc(anchor(left) + var(--pagination-inset));
-      top: calc(anchor(top) + var(--pagination-inset));
+      left: anchor(left);
+      top: anchor(top);
     }
 
     .pagination__item:has(+ .pagination__item--gap) .pagination__link::after,
@@ -340,14 +344,14 @@
 
   @media screen and (max-width: 749px) {
     .pagination {
-      --pagination-size: 44px;
-      --pagination-inset: 5px;
+      --pagination-size: 40px;
 
       padding: var(--padding-lg) var(--padding-sm);
     }
 
     .pagination__link {
-      font-size: var(--font-size--sm);
+      font-size: 18px;
+      line-height: 24px;
     }
 
     .pagination__item--mobile-hide {

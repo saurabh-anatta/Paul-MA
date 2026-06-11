@@ -72,7 +72,31 @@
       %}
     {% endpaginate %}
   </div>
+
+  {% if section.settings.disclaimer != blank %}
+    <div class="main-collection__disclaimer">
+      {{ section.settings.disclaimer }}
+    </div>
+  {% endif %}
 </results-list>
+
+{% stylesheet %}
+  .main-collection__disclaimer {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+    color: #767676;
+    padding-inline: var(--padding-lg);
+    padding-block-end: var(--padding-lg);
+  }
+
+  @media screen and (min-width: 750px) {
+    .main-collection__disclaimer {
+      padding-inline: 0;
+      grid-column: 2 / -1;
+    }
+  }
+{% endstylesheet %}
 
 {% schema %}
 {
@@ -220,6 +244,12 @@
       "step": 1,
       "unit": "px",
       "default": 0
+    },
+    {
+      "type": "richtext",
+      "id": "disclaimer",
+      "label": "Disclaimer text",
+      "default": "<p>Disclaimer: These recommendations are not intended to substitute for medical advice, nor are they meant to diagnose, prevent, treat, or cure any disease or condition. The products suggested above are based on common concerns experienced by otherwise healthy individuals. If you have a medical condition or specific health concerns, please consult a healthcare professional.</p>"
     },
     {
       "type": "header",

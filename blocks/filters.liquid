@@ -1307,6 +1307,145 @@
     height: var(--font-paragraph--size);
     position: absolute;
   }
+
+  /* ===== PLP Figma overrides — vertical sidebar ===== */
+
+  @media screen and (min-width: 750px) {
+    .facets-block-wrapper--vertical {
+      width: 328px;
+      min-width: 328px;
+    }
+  }
+
+  /* FILTER BY heading */
+  .facets--filters-title {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0;
+  }
+
+  /* Vertical filter group separator — single border-top only */
+  @media screen and (min-width: 750px) {
+    .facets--vertical :is(.facets__item, .sorting-filter)::before {
+      border-top: 1px solid #D4D3D2;
+      width: 100%;
+    }
+  }
+
+  /* Vertical filter group summary heading */
+  .facets--vertical .facets__summary {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+    text-transform: uppercase;
+    color: var(--color-foreground);
+  }
+
+  /* Vertical filter option list spacing */
+  .facets--vertical .facets__inputs-wrapper:not(:has(.facets__inputs-list)),
+  .facets--vertical .facets__inputs-wrapper .facets__inputs-list {
+    @media screen and (min-width: 750px) {
+      gap: 12px;
+    }
+  }
+
+  .facets--vertical .facets__inputs:not(:has(.show-more)) {
+    @media screen and (min-width: 750px) {
+      padding-block-end: 16px;
+    }
+  }
+
+  /* Show More link */
+  .facets--vertical .facets__inputs .show-more__button {
+    color: #098AA7;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 21px;
+  }
+
+  /* Applied filter chips (vertical context — tags row above grid) */
+  .facets--vertical .facets-remove__pill,
+  .facets-controls-wrapper .facets-remove__pill {
+    background-color: #DFDFDF;
+    border-radius: 4px;
+    padding: 4px 6px 4px 8px;
+    gap: 6px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+    color: var(--color-foreground);
+  }
+
+  .facets--vertical .facets-remove__pill .svg-wrapper,
+  .facets-controls-wrapper .facets-remove__pill .svg-wrapper {
+    width: 16px;
+    height: 16px;
+  }
+
+  .facets--vertical .facets-remove__pill .svg-wrapper svg,
+  .facets-controls-wrapper .facets-remove__pill .svg-wrapper svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Clear All link — text-decoration: underline, NOT border-bottom */
+  .facets--vertical .facets__clear-all-link,
+  .facets-controls-wrapper .facets__clear-all-link {
+    text-decoration: underline;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 21px;
+    color: var(--color-foreground);
+  }
+
+  .facets--vertical .facets__clear-all-link:hover,
+  .facets-controls-wrapper .facets__clear-all-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Products count — vertical controls bar */
+  .facets-controls-wrapper .products-count-wrapper {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 24px;
+    color: var(--color-foreground);
+
+    @media screen and (min-width: 750px) {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  /* Sort by label and value — vertical controls bar */
+  .facets-controls-wrapper .sorting-filter .facets__label {
+    font-size: 16px;
+    font-weight: 400;
+    color: #555555;
+  }
+
+  .facets-controls-wrapper .sorting-filter .facets__status {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-foreground);
+  }
+
+  /* ===== Mobile drawer polish ===== */
+  @media screen and (max-width: 749px) {
+    .facets-drawer__title {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 24px;
+    }
+
+    .facets__drawer-actions .facets__see-results {
+      border-radius: 32px;
+      background-color: var(--color-foreground);
+      color: var(--color-background);
+      width: 100%;
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}
