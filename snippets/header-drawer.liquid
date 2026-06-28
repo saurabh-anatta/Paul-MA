@@ -6,6 +6,9 @@
   @param {string} [data_header_drawer_type] - The type of header drawer to render
   @param {object} [block] - The block that can be used to provide settings
   @param {object} [section] - The section that can be used to provide settings
+  @param {object} [drawer_shop_menu] - Link list for the Shop drawer section
+  @param {object} [drawer_account_menu] - Link list for the Account drawer section
+  @param {object} [drawer_features_menu] - Link list for the Features drawer section
 
   @example
   {% render 'header-drawer', linklist: section.settings.menu, class: 'header-drawer--mobile' %}
@@ -64,10 +67,10 @@
       on:click="/toggle"
     >
       <span class="svg-wrapper header-drawer-icon header-drawer-icon--open">
-        {{- 'icon-menu.svg' | inline_asset_content -}}
+        <img src="{{ 'menu-streamline-sharp-material-symbols.svg' | asset_url }}" width="28" height="28" alt="" aria-hidden="true" style="width:28px;height:28px">
       </span>
       <span class="svg-wrapper header-drawer-icon header-drawer-icon--close">
-        {{- 'icon-close.svg' | inline_asset_content -}}
+        <img src="{{ 'icon-new-exit.svg' | asset_url }}" width="24" height="24" alt="" aria-hidden="true" style="width:24px;height:24px">
       </span>
     </summary>
     <div
@@ -79,18 +82,140 @@
         {% endif %}
       "
     >
-      <button
-        class="button close-button menu-drawer__close-button focus-inset"
-        type="button"
-        aria-label="{{ 'actions.close' | t }}"
-        on:click="/close"
-      >
-        <span class="svg-wrapper header-drawer-icon header-drawer-icon--close">
-          {{- 'icon-close.svg' | inline_asset_content -}}
-        </span>
-      </button>
+      <div class="custom-drawer-header">
+        <img src="{{ 'shop-logo-3.svg' | asset_url }}" width="127" height="17" alt="SHOP.COM" class="custom-drawer-header__logo" style="width:127px;height:17px">
+        <button
+          class="button button-unstyled custom-drawer-header__close focus-inset"
+          type="button"
+          aria-label="Close menu"
+          on:click="/close"
+        >
+          <img src="{{ 'icon-new-exit.svg' | asset_url }}" width="24" height="24" alt="Close menu" style="width:24px;height:24px">
+        </button>
+      </div>
+
+      {%- comment -%} Custom structured drawer content {%- endcomment -%}
+      <div class="custom-drawer-content">
+        {%- comment -%} SHOP SECTION {%- endcomment -%}
+        {%- if drawer_shop_menu != blank -%}
+          <div class="custom-drawer-section">
+            <h3 class="custom-drawer-section__heading">Shop</h3>
+            <ul class="custom-drawer-section__list list-unstyled">
+              {%- for link in drawer_shop_menu.links -%}
+                <li class="custom-drawer-section__item">
+                  {%- if link.links != blank -%}
+                    <details class="custom-drawer-section__details">
+                      <summary class="custom-drawer-section__link custom-drawer-section__link--has-children">
+                        <span>{{ link.title | escape }}</span>
+                        <img src="{{ 'chevron-right.svg' | asset_url }}" width="20" height="20" alt="" aria-hidden="true" class="custom-drawer-section__chevron" style="width:20px;height:20px">
+                      </summary>
+                      <ul class="custom-drawer-section__sublist list-unstyled">
+                        {%- for childlink in link.links -%}
+                          <li>
+                            <a href="{{ childlink.url }}" class="custom-drawer-section__sublink">{{ childlink.title | escape }}</a>
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    </details>
+                  {%- else -%}
+                    <a href="{{ link.url }}" class="custom-drawer-section__link">{{ link.title | escape }}</a>
+                  {%- endif -%}
+                </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+
+        {%- comment -%} ACCOUNT SECTION {%- endcomment -%}
+        {%- if drawer_account_menu != blank -%}
+          <div class="custom-drawer-section">
+            <h3 class="custom-drawer-section__heading">Account</h3>
+            <ul class="custom-drawer-section__list list-unstyled">
+              {%- for link in drawer_account_menu.links -%}
+                <li class="custom-drawer-section__item">
+                  <a href="{{ link.url }}" class="custom-drawer-section__link custom-drawer-section__link--icon">
+                    {%- liquid
+                      assign link_handle = link.title | downcase
+                      assign icon_file = ''
+                      if link_handle contains 'sign in' or link_handle contains 'create account'
+                        assign icon_file = 'noun-user-514033-1.svg'
+                      elsif link_handle contains 'track order'
+                        assign icon_file = 'icon-track-orders-24px-1.svg'
+                      elsif link_handle contains 'reorder'
+                        assign icon_file = 'icon-track-orders-24px-1-2.svg'
+                      elsif link_handle contains 'help'
+                        assign icon_file = 'icon-help-outline-24px-1.svg'
+                      endif
+                    -%}
+                    {%- if icon_file != '' -%}
+                      <img src="{{ icon_file | asset_url }}" width="20" height="20" alt="" aria-hidden="true" class="custom-drawer-section__icon" style="width:20px;height:20px">
+                    {%- endif -%}
+                    <span>{{ link.title | escape }}</span>
+                  </a>
+                </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+
+        {%- comment -%} FEATURES SECTION {%- endcomment -%}
+        {%- if drawer_features_menu != blank -%}
+          <div class="custom-drawer-section">
+            <h3 class="custom-drawer-section__heading">Features</h3>
+            <ul class="custom-drawer-section__list list-unstyled">
+              {%- for link in drawer_features_menu.links -%}
+                <li class="custom-drawer-section__item">
+                  <a href="{{ link.url }}" class="custom-drawer-section__link custom-drawer-section__link--icon">
+                    {%- liquid
+                      assign feature_handle = link.title | downcase
+                      assign feature_icon = ''
+                      if feature_handle contains 'home shopping list'
+                        assign feature_icon = 'icon-list-manager-24px-1.svg'
+                      elsif feature_handle contains 'list manager'
+                        assign feature_icon = 'icon-list-manager-24px-1.svg'
+                      elsif feature_handle contains 'egift'
+                        assign feature_icon = 'icon-egifts-24px-1.svg'
+                      elsif feature_handle contains 'price alert'
+                        assign feature_icon = 'icon-price-alerts-24px-1.svg'
+                      elsif feature_handle contains 'shopbuddy'
+                        assign feature_icon = 'icon-shopbuddy-24px-1.svg'
+                      elsif feature_handle contains 'deal'
+                        assign feature_icon = 'icon-deals-24px-1.svg'
+                      elsif feature_handle contains 'nutri-physical'
+                        assign feature_icon = 'np-icon-1.svg'
+                      endif
+                    -%}
+                    {%- if feature_icon != '' -%}
+                      <img src="{{ feature_icon | asset_url }}" width="20" height="20" alt="" aria-hidden="true" class="custom-drawer-section__icon" style="width:20px;height:20px">
+                    {%- endif -%}
+                    <span>{{ link.title | escape }}</span>
+                  </a>
+                </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} DRAWER FOOTER {%- endcomment -%}
+      <div class="custom-drawer-footer">
+        <div class="custom-drawer-footer__country">
+          <img src="{{ 'us-united-states-streamline-flagpack-5.svg' | asset_url }}" width="18" height="18" alt="US flag" style="width:18px;height:18px">
+          <span class="custom-drawer-footer__country-text">United States (USD $)</span>
+          <img src="{{ 'chevron-forward-streamline-outlined-material-symbols.svg' | asset_url }}" width="20" height="20" alt="" aria-hidden="true" style="width:20px;height:20px">
+        </div>
+        <div class="custom-drawer-footer__social">
+          <a href="#" class="custom-drawer-footer__social-link" aria-label="Social media"><img src="{{ 'social-icons-11.svg' | asset_url }}" width="20" height="20" alt="" style="width:20px;height:20px"></a>
+          <a href="#" class="custom-drawer-footer__social-link" aria-label="Social media"><img src="{{ 'social-icons-12.svg' | asset_url }}" width="20" height="20" alt="" style="width:20px;height:20px"></a>
+          <a href="#" class="custom-drawer-footer__social-link" aria-label="Social media"><img src="{{ 'social-icons-13.svg' | asset_url }}" width="20" height="20" alt="" style="width:20px;height:20px"></a>
+          <a href="#" class="custom-drawer-footer__social-link" aria-label="Social media"><img src="{{ 'social-icons-14.svg' | asset_url }}" width="20" height="20" alt="" style="width:20px;height:20px"></a>
+          <a href="#" class="custom-drawer-footer__social-link" aria-label="Social media"><img src="{{ 'social-icons-15.svg' | asset_url }}" width="20" height="20" alt="" style="width:20px;height:20px"></a>
+        </div>
+      </div>
+
+      {%- comment -%} Original navigation (hidden, kept for fallback) {%- endcomment -%}
       <nav
-        class="menu-drawer__navigation"
+        class="menu-drawer__navigation menu-drawer__navigation--original visually-hidden"
         style="
           {%- render 'menu-font-styles', settings: block_settings, menu_type: 'drawer' %}
           {%- render 'submenu-font-styles', settings: block_settings %}
@@ -1420,5 +1545,165 @@
 
   .drawer-localization .language-selector .svg-wrapper.icon-caret svg {
     transform: none;
+  }
+
+  /* Custom drawer header */
+  .custom-drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid #E5E5E5;
+    flex-shrink: 0;
+  }
+
+  .custom-drawer-header__logo {
+    display: block;
+  }
+
+  .custom-drawer-header__close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--color-foreground);
+  }
+
+  /* Custom drawer content area */
+  .custom-drawer-content {
+    overflow-y: auto;
+    flex: 1;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .custom-drawer-section__heading {
+    font-family: var(--font-body--family);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.64px;
+    color: #141414;
+    margin: 0 0 20px 0;
+  }
+
+  .custom-drawer-section__list {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .custom-drawer-section__link {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #141414;
+    text-decoration: none;
+
+    &:hover {
+      color: #141414;
+      opacity: 0.7;
+    }
+  }
+
+  .custom-drawer-section__link--has-children {
+    cursor: pointer;
+    justify-content: space-between;
+    list-style: none;
+  }
+
+  .custom-drawer-section__link--icon {
+    gap: 12px;
+  }
+
+  .custom-drawer-section__icon {
+    flex-shrink: 0;
+  }
+
+  .custom-drawer-section__chevron {
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+
+  .custom-drawer-section__details[open] > .custom-drawer-section__link--has-children .custom-drawer-section__chevron {
+    transform: rotate(90deg);
+  }
+
+  .custom-drawer-section__details {
+    width: 100%;
+  }
+
+  .custom-drawer-section__sublist {
+    margin: 0;
+    padding: 0 0 0 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .custom-drawer-section__sublink {
+    display: block;
+    padding: 8px 0;
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #555555;
+    text-decoration: none;
+
+    &:hover {
+      color: #141414;
+    }
+  }
+
+  /* Custom drawer footer */
+  .custom-drawer-footer {
+    padding: 24px;
+    border-top: 1px solid #E5E5E5;
+    flex-shrink: 0;
+  }
+
+  .custom-drawer-footer__country {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+  }
+
+  .custom-drawer-footer__country-text {
+    font-family: var(--font-body--family);
+    font-size: 14px;
+    line-height: 20px;
+    color: #141414;
+  }
+
+  .custom-drawer-footer__social {
+    display: flex;
+    gap: 16px;
+    margin-top: 20px;
+  }
+
+  .custom-drawer-footer__social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+  }
+
+  /* Hide original nav when custom drawer is visible */
+  .menu-drawer__navigation--original {
+    display: none;
   }
 {% endstylesheet %}

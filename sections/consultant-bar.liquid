@@ -1,0 +1,154 @@
+<div
+  class="consultant-bar"
+  style="
+    --consultant-bar-bg: {{ section.settings.background_color }};
+    --consultant-bar-text: {{ section.settings.text_color }};
+    --consultant-bar-right-text: {{ section.settings.right_text_color }};
+    --consultant-bar-padding-top: {{ section.settings.padding-block-start }}px;
+    --consultant-bar-padding-bottom: {{ section.settings.padding-block-end }}px;
+  "
+>
+  <div class="consultant-bar__inner{% if section.settings.section_width == 'page-width' %} page-width{% endif %}">
+    <span class="consultant-bar__left">{{ section.settings.left_text }}</span>
+    {%- if section.settings.right_link != blank -%}
+      <a href="{{ section.settings.right_link }}" class="consultant-bar__right">{{ section.settings.right_text }}</a>
+    {%- else -%}
+      <span class="consultant-bar__right">{{ section.settings.right_text }}</span>
+    {%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .consultant-bar {
+    background-color: var(--consultant-bar-bg, #141414);
+    padding-block-start: var(--consultant-bar-padding-top, 8px);
+    padding-block-end: var(--consultant-bar-padding-bottom, 8px);
+  }
+
+  .consultant-bar__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: var(--page-margin, 64px);
+    gap: 16px;
+  }
+
+  .consultant-bar__inner.page-width {
+    padding-inline: 0;
+  }
+
+  .consultant-bar__left {
+    font-family: var(--font-body--family);
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--consultant-bar-text, #FFFFFF);
+    white-space: nowrap;
+  }
+
+  .consultant-bar__right {
+    font-family: var(--font-body--family);
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--consultant-bar-right-text, #207D94);
+    text-decoration: none;
+    white-space: nowrap;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .consultant-bar__inner {
+      padding-inline: 16px;
+    }
+
+    .consultant-bar__left,
+    .consultant-bar__right {
+      font-size: 10px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Consultant bar",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "left_text",
+      "label": "Left text",
+      "default": "Your Shop Consultant is SHOP.COM"
+    },
+    {
+      "type": "text",
+      "id": "right_text",
+      "label": "Right text",
+      "default": "Start Your SHOP.COM Business"
+    },
+    {
+      "type": "url",
+      "id": "right_link",
+      "label": "Right text link"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#141414"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "right_text_color",
+      "label": "Right text color",
+      "default": "#207D94"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Width",
+      "options": [
+        {
+          "value": "page-width",
+          "label": "Page width"
+        },
+        {
+          "value": "full-width",
+          "label": "Full width"
+        }
+      ],
+      "default": "full-width"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    }
+  ],
+  "enabled_on": {
+    "groups": ["header"]
+  }
+}
+{% endschema %}

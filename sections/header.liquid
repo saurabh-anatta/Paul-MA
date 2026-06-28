@@ -98,6 +98,46 @@
     render 'header-actions', customer_account_menu: section.settings.customer_account_menu, display_style: section.settings.actions_display_style, section: section
   endcapture
 
+  capture header_tabs_markup
+    if section.settings.show_header_tabs and section.settings.header_tabs_menu != blank
+      echo '<nav class="header-tabs" aria-label="Quick links">'
+      for link in section.settings.header_tabs_menu.links
+        echo '<a href="'
+        echo link.url
+        echo '" class="header-tabs__tab">'
+        echo link.title
+        echo '</a>'
+      endfor
+      echo '</nav>'
+    endif
+  endcapture
+
+  capture header_inline_search_markup
+    if section.settings.show_inline_search
+      echo '<form action="'
+      echo routes.search_url
+      echo '" method="get" class="header-search-inline" role="search">'
+      echo '<img src="'
+      assign search_icon_url = 'search-streamline-sharp-streamline-material-free.svg' | asset_url
+      echo search_icon_url
+      echo '" width="20" height="20" alt="" aria-hidden="true" class="header-search-inline__icon" style="width:20px;height:20px">'
+      echo '<input type="search" name="q" placeholder="Search products" class="header-search-inline__input" autocomplete="off">'
+      echo '</form>'
+    endif
+  endcapture
+
+  capture header_cta_markup
+    if section.settings.show_header_cta
+      echo '<a href="'
+      echo section.settings.header_cta_link
+      echo '" class="header-cta" style="--header-cta-color: '
+      echo section.settings.header_cta_color
+      echo '">'
+      echo section.settings.header_cta_text
+      echo '</a>'
+    endif
+  endcapture
+
   if shop.customer_accounts_enabled
     assign search_class = 'search-action--hidden-on-drawer'
   endif
@@ -437,6 +477,11 @@
         search: search,
         drawer_search: drawer_search
       %}
+      {% if row == 'top' %}
+        {{ header_tabs_markup }}
+        {{ header_inline_search_markup }}
+        {{ header_cta_markup }}
+      {% endif %}
     {% endcapture %}
 
     {% assign content = content | strip %}
@@ -1165,6 +1210,160 @@
     font-family: var(--menu-localization-font);
     font-size: var(--menu-localization-font-size);
   }
+
+  /* === Custom header additions === */
+
+  /* Force hamburger always visible on desktop */
+  .header__drawer-toggle,
+  .header__drawer {
+    /* stylelint-disable-next-line declaration-no-important */
+    display: flex !important;
+    order: -1;
+  }
+
+  /* Hide native desktop nav menu since we use hamburger + drawer */
+  @media screen and (min-width: 750px) {
+    #header-component[data-menu-style='menu'] .header-menu .menu-list:not(.menu-list--mobile) {
+      /* stylelint-disable-next-line declaration-no-important */
+      display: none !important;
+    }
+
+    #header-component[data-menu-style='menu'] .header-menu {
+      /* stylelint-disable-next-line declaration-no-important */
+      display: none !important;
+    }
+  }
+
+  /* Header tabs (desktop only) */
+  .header-tabs {
+    display: none;
+    align-items: center;
+    gap: 8px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .header-tabs {
+      display: flex;
+      grid-area: unset;
+    }
+  }
+
+  .header-tabs__tab {
+    padding: 6px 16px;
+    border-radius: 20px;
+    background: #F1F1F1;
+    font-family: var(--font-body--family);
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--color-foreground);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background: #E5E5E5;
+    }
+  }
+
+  /* Inline search (desktop only) */
+  .header-search-inline {
+    display: none;
+  }
+
+  @media screen and (min-width: 750px) {
+    .header-search-inline {
+      display: flex;
+      align-items: center;
+      background: #F5F5F5;
+      border-radius: 24px;
+      padding: 10px 16px;
+      gap: 8px;
+      flex: 1;
+      max-width: 420px;
+      min-width: 200px;
+      grid-area: unset;
+    }
+  }
+
+  .header-search-inline__icon {
+    flex-shrink: 0;
+  }
+
+  .header-search-inline__input {
+    border: none;
+    background: transparent;
+    outline: none;
+    flex: 1;
+    font-family: var(--font-body--family);
+    font-size: 14px;
+    color: var(--color-foreground);
+    min-width: 0;
+
+    &::placeholder {
+      color: #ACACAC;
+    }
+  }
+
+  /* CTA button (desktop only) */
+  .header-cta {
+    display: none;
+  }
+
+  @media screen and (min-width: 750px) {
+    .header-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 20px;
+      border: 1.5px solid var(--header-cta-color, #207D94);
+      border-radius: 24px;
+      color: var(--header-cta-color, #207D94);
+      font-family: var(--font-body--family);
+      font-size: 14px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      grid-area: unset;
+
+      &:hover {
+        background: var(--header-cta-color, #207D94);
+        color: #FFFFFF;
+      }
+    }
+  }
+
+  /* Desktop header layout override: single row with all items */
+  @media screen and (min-width: 750px) {
+    .header__columns:has(.header-tabs, .header-search-inline, .header-cta) {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .header__columns:has(.header-tabs, .header-search-inline, .header-cta) .header__column--left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+
+    .header__columns:has(.header-tabs, .header-search-inline, .header-cta) .header__column--right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      justify-content: flex-end;
+      flex-shrink: 0;
+      margin-inline-start: auto;
+    }
+  }
+
+  /* Hide native search icon on desktop when inline search is present */
+  @media screen and (min-width: 750px) {
+    .header__columns:has(.header-search-inline) .search-action {
+      /* stylelint-disable-next-line declaration-no-important */
+      display: none !important;
+    }
+  }
 {% endstylesheet %}
 
 {% unless request.design_mode %}
@@ -1303,6 +1502,50 @@
       ],
       "default": "top",
       "visible_if": "{{ section.settings.show_search }}"
+    },
+    {
+      "type": "header",
+      "content": "Header extras"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_header_tabs",
+      "label": "Show header tabs",
+      "default": true
+    },
+    {
+      "type": "link_list",
+      "id": "header_tabs_menu",
+      "label": "Header tabs menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_inline_search",
+      "label": "Show inline search bar",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_header_cta",
+      "label": "Show CTA button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "header_cta_text",
+      "label": "CTA text",
+      "default": "Take Quiz"
+    },
+    {
+      "type": "url",
+      "id": "header_cta_link",
+      "label": "CTA link"
+    },
+    {
+      "type": "color",
+      "id": "header_cta_color",
+      "label": "CTA color",
+      "default": "#207D94"
     },
     {
       "type": "header",

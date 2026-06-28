@@ -11,34 +11,17 @@
   "type": "header",
   "name": "t:names.header",
   "sections": {
-    "header_announcements_9jGBFp": {
-      "type": "header-announcements",
-      "blocks": {
-        "announcement_BxgCk9": {
-          "type": "_announcement",
-          "settings": {
-            "text": "Welcome to our store",
-            "link": "",
-            "font": "var(--font-subheading--family)",
-            "font_size": "0.75rem",
-            "weight": "",
-            "letter_spacing": "normal",
-            "case": "none"
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "announcement_BxgCk9"
-      ],
-      "name": "t:names.announcement_bar",
+    "consultant_bar": {
+      "type": "consultant-bar",
       "settings": {
-        "speed": 5,
-        "section_width": "page-width",
-        "divider_width": 1,
-        "padding-block-start": 15,
-        "padding-block-end": 15,
-        "divider_color": "{{ settings.color_palette.color3 }}"
+        "left_text": "Your Shop Consultant is SHOP.COM",
+        "right_text": "Start Your SHOP.COM Business",
+        "background_color": "#141414",
+        "text_color": "#FFFFFF",
+        "right_text_color": "#207D94",
+        "section_width": "full-width",
+        "padding-block-start": 8,
+        "padding-block-end": 8
       }
     },
     "header_section": {
@@ -70,7 +53,10 @@
             "navigation_bar": false,
             "drawer_accordion": false,
             "drawer_accordion_expand_first": false,
-            "drawer_dividers": false
+            "drawer_dividers": false,
+            "drawer_shop_menu": "drawer-shop-menu",
+            "drawer_account_menu": "drawer-account-menu",
+            "drawer_features_menu": "drawer-features-menu"
           },
           "blocks": {}
         }
@@ -97,12 +83,33 @@
         "border_width": 0,
         "enable_transparent_header_home": false,
         "enable_transparent_header_product": false,
-        "enable_transparent_header_collection": false
+        "enable_transparent_header_collection": false,
+        "show_header_tabs": true,
+        "header_tabs_menu": "header-tabs",
+        "show_inline_search": true,
+        "show_header_cta": true,
+        "header_cta_text": "Take Quiz",
+        "header_cta_color": "#207D94"
+      }
+    },
+    "promo_bar": {
+      "type": "promo-bar",
+      "settings": {
+        "badge_text": "Get Paid Daily",
+        "promo_text": "$6,073,506,282 awarded in cash!",
+        "learn_more_text": "Learn More",
+        "show_badge": true,
+        "background_color": "#FFFFFF",
+        "padding-block-start": 10,
+        "padding-block-end": 10,
+        "section_width": "full-width",
+        "divider_width": 1
       }
     }
   },
   "order": [
-    "header_announcements_9jGBFp",
-    "header_section"
+    "consultant_bar",
+    "header_section",
+    "promo_bar"
   ]
 }

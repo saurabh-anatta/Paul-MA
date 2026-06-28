@@ -22,7 +22,10 @@
         linklist: block_settings.menu,
         data_header_drawer_type: 'mobile-drawer',
         block: block,
-        section: section
+        section: section,
+        drawer_shop_menu: block_settings.drawer_shop_menu,
+        drawer_account_menu: block_settings.drawer_account_menu,
+        drawer_features_menu: block_settings.drawer_features_menu
       %}
     </div>
 
@@ -711,6 +714,21 @@
       "id": "menu",
       "label": "t:settings.menu",
       "default": "main-menu"
+    },
+    {
+      "type": "link_list",
+      "id": "drawer_shop_menu",
+      "label": "Drawer: Shop menu"
+    },
+    {
+      "type": "link_list",
+      "id": "drawer_account_menu",
+      "label": "Drawer: Account menu"
+    },
+    {
+      "type": "link_list",
+      "id": "drawer_features_menu",
+      "label": "Drawer: Features menu"
     },
     {
       "type": "header",
