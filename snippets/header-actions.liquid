@@ -31,7 +31,7 @@
       class="svg-wrapper {% if display_style != 'icon' %}desktop:hidden{% endif %}"
       aria-hidden="true"
     >
-      {{ 'icon-cart.svg' | inline_asset_content }}
+      <img src="{{ 'shopping-bag-streamline-outlined-material-symbols.svg' | asset_url }}" width="28" height="28" alt="" style="width:28px;height:28px">
     </span>
 
     {% render 'cart-bubble', limit: 100 %}
