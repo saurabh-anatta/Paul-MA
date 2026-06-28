@@ -36,6 +36,29 @@
     {% endstyle %}
   {% endif %}
 
+  {%- if block_settings.toggle_overlay and block_settings.overlay_style == 'gradient' -%}
+    {% style %}
+      @media screen and (max-width: 749px) {
+        .shopify-section-{{ section.id }} .overlay--gradient {
+          background: linear-gradient(175deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.44) 55%, rgba(0,0,0,0.7) 100%);
+        }
+      }
+    {% endstyle %}
+  {%- endif -%}
+
+  {%- if block_settings.content_direction == 'column' and block_settings.horizontal_alignment_flex_direction_column == 'flex-start' -%}
+    {% style %}
+      @media screen and (max-width: 749px) {
+        .shopify-section-{{ section.id }} .layout-panel-flex--column {
+          --horizontal-alignment: center;
+          --vertical-alignment: flex-end;
+          --vertical-alignment-mobile: flex-end;
+          text-align: center;
+        }
+      }
+    {% endstyle %}
+  {%- endif -%}
+
   <div class="slide__image-container{% if rounded_image_corners %} slide__image-container--rounded{% endif %}">
     {%- if block_settings.toggle_overlay -%}
       {% render 'overlay', settings: block_settings %}
@@ -65,11 +88,28 @@
       -%}
 
       {%- if block_settings.media_type_1 == 'image' -%}
-        {{
-          block_settings.image_1
-          | image_url: width: 3840
-          | image_tag: height: height, sizes: sizes, widths: widths, class: 'slide__image', loading: loading, fetchpriority: fetchpriority
-        }}
+        {%- if block_settings.image_1_mobile != blank -%}
+          {{
+            block_settings.image_1
+            | image_url: width: 3840
+            | image_tag: height: height, sizes: sizes, widths: widths, class: 'slide__image slide__image--desktop', loading: loading, fetchpriority: fetchpriority
+          }}
+          {%- liquid
+            assign mobile_height = block_settings.image_1_mobile.width | divided_by: block_settings.image_1_mobile.aspect_ratio | round
+            assign mobile_widths = '375, 550, 750, 828'
+          -%}
+          {{
+            block_settings.image_1_mobile
+            | image_url: width: 828
+            | image_tag: height: mobile_height, sizes: '100vw', widths: mobile_widths, class: 'slide__image slide__image--mobile', loading: loading, fetchpriority: fetchpriority
+          }}
+        {%- else -%}
+          {{
+            block_settings.image_1
+            | image_url: width: 3840
+            | image_tag: height: height, sizes: sizes, widths: widths, class: 'slide__image', loading: loading, fetchpriority: fetchpriority
+          }}
+        {%- endif -%}
       {%- else -%}
         {%- if block_settings.video_1.preview_image -%}
 
@@ -183,6 +223,18 @@
   slideshow-slide .slide__image-container--rounded {
     border-radius: var(--corner-radius, 0);
   }
+
+  @media screen and (min-width: 750px) {
+    .slide__image-container > .slide__image--mobile {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .slide__image-container > .slide__image--desktop {
+      display: none;
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}
@@ -242,6 +294,12 @@
       "type": "image_picker",
       "id": "image_1",
       "label": "t:settings.image",
+      "visible_if": "{{ block.settings.media_type_1 == 'image' }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1_mobile",
+      "label": "Mobile image",
       "visible_if": "{{ block.settings.media_type_1 == 'image' }}"
     },
     {
@@ -438,6 +496,14 @@
         {
           "value": "to bottom",
           "label": "t:options.down"
+        },
+        {
+          "value": "to left",
+          "label": "t:options.left"
+        },
+        {
+          "value": "to right",
+          "label": "t:options.right"
         }
       ],
       "default": "to top",

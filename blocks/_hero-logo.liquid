@@ -1,0 +1,29 @@
+<div class="hero-logo" {{ block.shopify_attributes }}>
+  {{ 'frame-1.svg' | inline_asset_content }}
+</div>
+
+{% stylesheet %}
+  .hero-logo {
+    display: flex;
+  }
+
+  .hero-logo svg {
+    width: 77px;
+    height: auto;
+    fill: #FFFFFF;
+  }
+
+  @media screen and (min-width: 750px) {
+    .hero-logo svg {
+      width: 107px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Hero logo",
+  "tag": null,
+  "settings": []
+}
+{% endschema %}
