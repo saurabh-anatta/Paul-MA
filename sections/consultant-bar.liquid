@@ -1,0 +1,122 @@
+<div
+  class="consultant-bar"
+  style="
+    --consultant-bg: {{ section.settings.background_color }};
+    --consultant-text: {{ section.settings.text_color }};
+    --padding-block-start: {{ section.settings.padding-block-start }}px;
+    --padding-block-end: {{ section.settings.padding-block-end }}px;
+  "
+>
+  <div class="consultant-bar__inner">
+    <span class="consultant-bar__left">{{ section.settings.left_text }}</span>
+    {%- if section.settings.right_link != blank -%}
+      <a href="{{ section.settings.right_link }}" class="consultant-bar__right consultant-bar__link">
+        {{ section.settings.right_text }}
+      </a>
+    {%- else -%}
+      <span class="consultant-bar__right">{{ section.settings.right_text }}</span>
+    {%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .consultant-bar {
+    background-color: var(--consultant-bg, #FFFFFF);
+    color: var(--consultant-text, #141414);
+    padding-block-start: var(--padding-block-start, 8px);
+    padding-block-end: var(--padding-block-end, 8px);
+  }
+
+  .consultant-bar__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: var(--page-width, 1440px);
+    margin-inline: auto;
+    padding-inline: var(--page-margin, 64px);
+    font-family: var(--font-body--family);
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 400;
+  }
+
+  .consultant-bar__link {
+    color: var(--consultant-text, #141414);
+    text-decoration: none;
+  }
+
+  .consultant-bar__link:hover {
+    text-decoration: underline;
+  }
+
+  @media screen and (max-width: 749px) {
+    .consultant-bar__inner {
+      justify-content: center;
+      text-align: center;
+      flex-wrap: wrap;
+      gap: 4px;
+      padding-inline: 16px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Consultant bar",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "text",
+      "id": "left_text",
+      "label": "Left text",
+      "default": "Your Shop Consultant is SHOP.COM"
+    },
+    {
+      "type": "text",
+      "id": "right_text",
+      "label": "Right text",
+      "default": "Start Your SHOP.COM Business"
+    },
+    {
+      "type": "url",
+      "id": "right_link",
+      "label": "Right link"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#141414"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Padding top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    }
+  ],
+  "enabled_on": {
+    "groups": ["header"]
+  }
+}
+{% endschema %}

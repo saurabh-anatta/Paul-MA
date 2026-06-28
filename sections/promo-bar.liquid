@@ -1,0 +1,163 @@
+<div
+  class="promo-bar"
+  style="
+    --promo-bg: {{ section.settings.background_color }};
+    --promo-text: {{ section.settings.text_color }};
+    --padding-block-start: {{ section.settings.padding-block-start }}px;
+    --padding-block-end: {{ section.settings.padding-block-end }}px;
+  "
+>
+  <div class="promo-bar__inner">
+    <div class="promo-bar__content">
+      <span class="promo-bar__text">{{ section.settings.promo_text }}</span>
+      {%- if section.settings.link_url != blank -%}
+        <a href="{{ section.settings.link_url }}" class="promo-bar__link">{{ section.settings.link_text }}</a>
+      {%- else -%}
+        <span class="promo-bar__link">{{ section.settings.link_text }}</span>
+      {%- endif -%}
+    </div>
+    {%- if section.settings.badge_text != blank -%}
+      <span class="promo-bar__badge">{{ section.settings.badge_text }}</span>
+    {%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .promo-bar {
+    background-color: var(--promo-bg, #F1F1F1);
+    color: var(--promo-text, #141414);
+    padding-block-start: var(--padding-block-start, 10px);
+    padding-block-end: var(--padding-block-end, 10px);
+  }
+
+  .promo-bar__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: var(--page-width, 1440px);
+    margin-inline: auto;
+    padding-inline: var(--page-margin, 64px);
+    gap: 16px;
+  }
+
+  .promo-bar__content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .promo-bar__text {
+    font-family: var(--font-body--family);
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+  }
+
+  .promo-bar__link {
+    font-family: var(--font-body--family);
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    color: #207D94;
+    text-decoration: underline;
+  }
+
+  .promo-bar__link:hover {
+    opacity: 0.8;
+  }
+
+  .promo-bar__badge {
+    display: inline-flex;
+    align-items: center;
+    background: linear-gradient(to right, #C9D855, #69BA86, #408DA1);
+    color: #FFFFFF;
+    font-family: var(--font-body--family);
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 500;
+    border-radius: 20px;
+    padding: 6px 16px;
+    white-space: nowrap;
+  }
+
+  @media screen and (max-width: 749px) {
+    .promo-bar__inner {
+      flex-direction: column;
+      gap: 8px;
+      padding-inline: 16px;
+      text-align: center;
+    }
+
+    .promo-bar__content {
+      justify-content: center;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Promo bar",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "text",
+      "id": "promo_text",
+      "label": "Promo text",
+      "default": "$6,075,506,282 awarded in cash!"
+    },
+    {
+      "type": "text",
+      "id": "link_text",
+      "label": "Link text",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Link URL"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge text",
+      "default": "Get Paid Daily VIFT"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#F1F1F1"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#141414"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Padding top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    }
+  ],
+  "enabled_on": {
+    "groups": ["header"]
+  }
+}
+{% endschema %}

@@ -699,6 +699,13 @@
   .menu-list__list-item:not(:has([aria-expanded='true'])) > .menu-list__submenu product-component {
     display: none;
   }
+
+  /* Custom menu spacing for compact nav layouts (e.g. 2-item menus like Brands/Stores) */
+  @media screen and (max-width: 749px) {
+    .header-menu {
+      display: none;
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}
