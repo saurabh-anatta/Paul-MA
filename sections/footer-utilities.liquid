@@ -93,6 +93,13 @@
       text-align: right;
     }
   }
+
+  /* Footer bottom bar: bottom-align logo and payment icons */
+  @media screen and (min-width: 750px) {
+    .utilities {
+      align-items: flex-end;
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}
@@ -187,6 +194,12 @@
     },
     {
       "type": "social-links"
+    },
+    {
+      "type": "_footer-logo"
+    },
+    {
+      "type": "payment-icons"
     }
   ],
   "presets": [

@@ -95,6 +95,49 @@
       grid-column: 1 / -1;
     }
   }
+
+  /* --- Footer redesign overrides --- */
+
+  /* Desktop: asymmetric 2-column layout (left 360px / right flex) */
+  @media screen and (min-width: 990px) {
+    .footer-content {
+      grid-template-columns: 360px 1fr;
+      column-gap: 120px;
+    }
+
+    /* Equal-width menu columns in the right column group */
+    .footer-content > :nth-child(2) > * {
+      flex: 1;
+      min-width: 0;
+    }
+  }
+
+  /* Tablet: single column stack */
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    .footer-content {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Menu heading typography: uppercase bold with letter-spacing */
+  .footer-content .menu__heading,
+  .footer-content .menu__heading__default {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.64px;
+    font-size: 16px;
+    line-height: 16px;
+  }
+
+  /* Menu heading-to-items gap: 28px per Figma */
+  .footer-content .menu:not(:has(.menu__heading--empty)) .details-content {
+    margin-block-start: 28px;
+  }
+
+  /* Social icons gap: 32px per Figma */
+  .footer-content .social-icons__wrapper {
+    gap: 32px;
+  }
 {% endstylesheet %}
 
 {% schema %}

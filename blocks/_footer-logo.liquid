@@ -1,0 +1,52 @@
+{%- if block.settings.link != blank -%}
+  <a href="{{ block.settings.link }}" class="footer-logo" {{ block.shopify_attributes }}>
+    <img
+      src="{{ 'shop-logo-all-white-1.svg' | asset_url }}"
+      alt="SHOP.COM"
+      width="475"
+      height="64"
+      loading="lazy"
+    >
+  </a>
+{%- else -%}
+  <div class="footer-logo" {{ block.shopify_attributes }}>
+    <img
+      src="{{ 'shop-logo-all-white-1.svg' | asset_url }}"
+      alt="SHOP.COM"
+      width="475"
+      height="64"
+      loading="lazy"
+    >
+  </div>
+{%- endif -%}
+
+{% stylesheet %}
+  .footer-logo {
+    display: block;
+  }
+
+  .footer-logo img {
+    height: 64px;
+    width: auto;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Footer logo",
+  "tag": null,
+  "settings": [
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer logo",
+      "category": "t:categories.footer"
+    }
+  ]
+}
+{% endschema %}

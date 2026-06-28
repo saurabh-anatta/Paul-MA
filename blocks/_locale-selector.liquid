@@ -1,0 +1,111 @@
+<div class="locale-selector" {{ block.shopify_attributes }}>
+  <div class="locale-selector__pill">
+    <span class="locale-selector__label">{{ block.settings.language_label }}</span>
+    <span class="locale-selector__chevron svg-wrapper">
+      <img
+        src="{{ 'chevron-forward-streamline-outlined-material-symbols.svg' | asset_url }}"
+        alt=""
+        width="20"
+        height="20"
+        loading="lazy"
+      >
+    </span>
+  </div>
+  <div class="locale-selector__pill">
+    <span class="locale-selector__flag">
+      <img
+        src="{{ 'us-united-states-streamline-flagpack.svg' | asset_url }}"
+        alt=""
+        width="18"
+        height="18"
+        loading="lazy"
+      >
+    </span>
+    <span class="locale-selector__label">{{ block.settings.country_label }}</span>
+    <span class="locale-selector__chevron svg-wrapper">
+      <img
+        src="{{ 'chevron-forward-streamline-outlined-material-symbols.svg' | asset_url }}"
+        alt=""
+        width="20"
+        height="20"
+        loading="lazy"
+      >
+    </span>
+  </div>
+</div>
+
+{% stylesheet %}
+  .locale-selector {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .locale-selector__pill {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
+    border-radius: 20px;
+    background-color: #EEEEEE;
+    padding: 4px 8px 4px 12px;
+    cursor: pointer;
+  }
+
+  .locale-selector__label {
+    font-size: 12px;
+    line-height: 16px;
+    color: #141414;
+  }
+
+  .locale-selector__chevron {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & img {
+      width: 20px;
+      height: 20px;
+      transform: rotate(90deg);
+    }
+  }
+
+  .locale-selector__flag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & img {
+      width: 18px;
+      height: 18px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Locale selector",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "language_label",
+      "label": "Language label",
+      "default": "English"
+    },
+    {
+      "type": "text",
+      "id": "country_label",
+      "label": "Country label",
+      "default": "United States"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Locale selector",
+      "category": "t:categories.footer"
+    }
+  ]
+}
+{% endschema %}
